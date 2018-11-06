@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class ZombieController : MonoBehaviour
 {
-  public bool alive;
-  GameObject Zombie;
+  private bool close;
+  GameObject zombie;
   Animator zombieAnimator;
   Transform player;               // Reference to the player's position.
   PlayerHealth playerHealth;      // Reference to the player's health.
@@ -22,17 +22,30 @@ public class ZombieController : MonoBehaviour
   {
     // If the enemy and the player have health left...
     //if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
-    if (true)
+    if (close == false && 1.8 < Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
+                             new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
     {
       // ... set the destination of the nav mesh agent to the player.
+      nav.enabled = true;
       nav.SetDestination(player.position);
-    
+      zombieAnimator.Play("walk");
+      //zombieAnimator.SetTrigger("Moving");
+      close = false;
+    } else {
+      close = true;
     }
+
     // Otherwise...
-    else
+    if(close == true && 2.5 > Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
+                            new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
     {
-      // ... disable the nav mesh agent.
+
+      //cooldown tbd
+      zombieAnimator.Play("attack");
+      // playerHealth.TakeDamage(10);
       nav.enabled = false;
+    } else {
+      close = false;
     }
   }
 
@@ -40,10 +53,9 @@ public class ZombieController : MonoBehaviour
   {
     // Set up the references.
     player = GameObject.FindGameObjectWithTag("Player").transform;
-    playerHealth = player.GetComponent<PlayerHealth>();
-    enemyHealth = GetComponent<EnemyHealth>();
+    //playerHealth = player.GetComponent<PlayerHealth>();
+    //enemyHealth = GetComponent<EnemyHealth>();
     nav = GetComponent<NavMeshAgent>();
-    Zombie = nav.GetComponentInParent<GameObject>();
-    zombieAnimator = Zombie.GetComponentInChildren<Animator>();
+    zombieAnimator = GetComponentInParent<Animator>();
   }
 }
