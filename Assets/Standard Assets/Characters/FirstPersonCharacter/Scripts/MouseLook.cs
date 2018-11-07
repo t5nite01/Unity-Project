@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-namespace UnityStandardAssets.Characters.FirstPerson
+namespace UnityStandardAssets.Characters.FirstPerson 
 {
     [Serializable]
-    public class MouseLook
+    public class MouseLook : MonoBehaviour
     {
         public float XSensitivity = 2f;
         public float YSensitivity = 2f;
