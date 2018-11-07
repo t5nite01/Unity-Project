@@ -7,6 +7,7 @@ public class ZombieController : MonoBehaviour
   private bool close;
   GameObject zombie;
   Animator zombieAnimator;
+  Animation zombieAnimation;
   Transform player;               // Reference to the player's position.
   PlayerHealth playerHealth;      // Reference to the player's health.
   EnemyHealth enemyHealth;        // Reference to this enemy's health.
@@ -20,32 +21,39 @@ public class ZombieController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+
+    // Switch between idle and walk
     // If the enemy and the player have health left...
     //if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
     if (close == false && 1.8 < Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
-                             new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
+                              new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
     {
       // ... set the destination of the nav mesh agent to the player.
       nav.enabled = true;
       nav.SetDestination(player.position);
-      zombieAnimator.Play("walk");
-      //zombieAnimator.SetTrigger("Moving");
-      close = false;
-    } else {
+      zombieAnimator.SetTrigger("Moving");
+    }
+    else
+    {
+      zombieAnimator.ResetTrigger("Moving");
       close = true;
     }
 
     // Otherwise...
-    if(close == true && 2.5 > Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
+    if (close == true && 2.5 > Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
                             new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
     {
 
       //cooldown tbd
-      zombieAnimator.Play("attack");
+      zombieAnimator.SetTrigger("Attacking");
+
       // playerHealth.TakeDamage(10);
       nav.enabled = false;
-    } else {
+    }
+    else
+    {
       close = false;
+      zombieAnimator.ResetTrigger("Attacking");
     }
   }
 
