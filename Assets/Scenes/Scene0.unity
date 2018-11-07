@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4418865, g: 0.49083143, b: 0.570789, a: 1}
+  m_IndirectSpecularColor: {r: 0.4418867, g: 0.49083215, b: 0.5707898, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3300,6 +3300,29 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a898a664488ed1147b5b3d6aecd095f1, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &789347497 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 149790, guid: 7737647c22c1fc64a88d5cd030c352ce,
+    type: 2}
+  m_PrefabInternal: {fileID: 1617488591}
+--- !u!114 &789347498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 789347497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f916f55be396a2a43b1849e359317f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  healthSlider: {fileID: 0}
+  damageImage: {fileID: 0}
+  deathClip: {fileID: 0}
+  flashSpeed: 5
+  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
 --- !u!1001 &793072458
 Prefab:
   m_ObjectHideFlags: 0
@@ -4005,7 +4028,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1049515534}
   - component: {fileID: 1049515533}
-  - component: {fileID: 1049515532}
   m_Layer: 0
   m_Name: spawns
   m_TagString: Untagged
@@ -4013,18 +4035,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1049515532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114125430126185126, guid: 92bf93fd272292c40b7d6f087f71b8a2,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1049515531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1049515533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4036,10 +4046,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db9efb0f5deaa340a87fe6ebb252af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 789347498}
   enemy: {fileID: 1838637918591898, guid: 755950a3c6644234c91a2087d164660c, type: 2}
   spawnTime: 3
-  spawnPoints: []
+  spawnPoints:
+  - {fileID: 2138110141}
+  - {fileID: 167285976}
+  - {fileID: 1085757917}
 --- !u!4 &1049515534
 Transform:
   m_ObjectHideFlags: 0
