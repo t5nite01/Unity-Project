@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - component: {fileID: 451222}
   - component: {fileID: 19343728}
-  - component: {fileID: 3350282}
   - component: {fileID: 2323548}
   - component: {fileID: 13699876}
+  - component: {fileID: 3350282}
   m_Layer: 0
   m_Name: tree03
   m_TagString: Untagged
@@ -153,7 +153,7 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!33 &3350282
 MeshFilter:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191138}
