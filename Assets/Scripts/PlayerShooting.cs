@@ -54,8 +54,8 @@ public class PlayerShooting : MonoBehaviour
     public void DisableEffects ()
     {
         // Disable the line renderer and the light.
-        //gunLine.enabled = false;
-        //gunLight.enabled = false;
+        gunLine.enabled = false;
+        gunLight.enabled = false;
     }
 
     void Shoot ()
