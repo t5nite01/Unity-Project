@@ -1,5 +1,3 @@
-*.prefab -merge -crlf -diff
-*.unity -merge -crlf -diff
-*.anim -merge -crlf -diff
-*.controller -merge -crlf -diff
-*.mat -merge -crlf -diff
+*.unity binary
+*.prefab binary
+*.asset binary
