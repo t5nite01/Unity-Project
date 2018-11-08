@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Materials/New Material 1.mat.meta
 guid: 6c9849118da95ed43b28944296b0bdfc
+=======
+guid: a5d1ad94aa0aad0439c9e559ebea1564
+>>>>>>> Tero:Assets/Prefabs/Terrain.prefab.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
