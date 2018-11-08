@@ -6088,6 +6088,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 154408989856732420, guid: 6c3fe4295aadc7547a80461b86b25f28,
+        type: 2}
+      propertyPath: m_TerrainData
+      value: 
+      objectReference: {fileID: 15600000, guid: 112fb2aafa811354d8b1eed55ea82d13,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c3fe4295aadc7547a80461b86b25f28, type: 2}
   m_IsPrefabAsset: 0
