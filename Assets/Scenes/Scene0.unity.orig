@@ -2704,6 +2704,48 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83a0c52366d043948b7b8baee40e87b9, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &569946727
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1639120024}
+    m_Modifications:
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 8.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.9347473
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -74.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104887759228690, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 93431314f9d319d4298e5ee1ff09121e, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!4 &593216719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 437120, guid: a898a664488ed1147b5b3d6aecd095f1,
