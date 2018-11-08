@@ -30,6 +30,7 @@ public class ZombieController : MonoBehaviour
     {
       // ... set the destination of the nav mesh agent to the player.
       nav.enabled = true;
+      
       nav.SetDestination(player.position);
       zombieAnimator.SetTrigger("Moving");
     }
