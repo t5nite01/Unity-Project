@@ -44,11 +44,7 @@ public class ZombieController : MonoBehaviour
     if (close == true && 2.5 > Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
                             new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
     {
-
-      //cooldown tbd
       zombieAnimator.SetTrigger("Attacking");
-
-      // playerHealth.TakeDamage(10);
       nav.enabled = false;
     }
     else

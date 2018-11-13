@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour
   public GameObject enemy;                // The enemy prefab to be spawned.
   public float spawnTime = 3f;            // How long between each spawn.
   public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
-
+  private int Spawns;
 
   void Start()
   {
@@ -14,9 +14,13 @@ public class EnemyManager : MonoBehaviour
     InvokeRepeating("Spawn", spawnTime, spawnTime);
   }
 
-
   void Spawn()
   {
+    Spawns += 1;
+    if(Spawns % 5 == 4){
+      spawnTime -= 0.05f;
+    }
+
     // If the player has no health left...
     if (playerHealth.currentHealth <= 0f)
     {
