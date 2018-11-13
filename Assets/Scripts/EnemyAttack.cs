@@ -35,7 +35,6 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-
     void OnTriggerExit (Collider other)
     {
         // If the exiting collider is the player...
@@ -79,5 +78,11 @@ public class EnemyAttack : MonoBehaviour
             // ... damage the player.
             playerHealth.TakeDamage (attackDamage);
         }
+    }
+
+
+    public float setAttackDamage(int damage){
+      attackDamage = damage;
+      return 0;
     }
 }
