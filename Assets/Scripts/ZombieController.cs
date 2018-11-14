@@ -69,4 +69,10 @@ public class ZombieController : MonoBehaviour
     nav = GetComponent<NavMeshAgent>();
     zombieAnimator = GetComponentInParent<Animator>();
   }
+  public void kill(){
+    zombieAnimator.ResetTrigger("Attacking");
+    zombieAnimator.ResetTrigger("Moving");
+    zombieAnimator.SetTrigger("Dead");
+    this.enabled = false;
+  }
 }
