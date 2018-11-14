@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class ZombieController : MonoBehaviour
 {
   private bool close;
@@ -16,6 +17,11 @@ public class ZombieController : MonoBehaviour
   void Start()
   {
 
+  }
+
+    void OnAnimatorMove()
+  {
+      nav.velocity = zombieAnimator.deltaPosition / Time.deltaTime;
   }
 
   // Update is called once per frame
