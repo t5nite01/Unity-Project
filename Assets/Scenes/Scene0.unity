@@ -3834,6 +3834,57 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a898a664488ed1147b5b3d6aecd095f1, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &604373094
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1639120024}
+    m_Modifications:
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 181.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -17.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -148.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3cc6c3457813a304cbce23ab0389de51, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!4 &604373095 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4881551461007400, guid: 3cc6c3457813a304cbce23ab0389de51,
+    type: 2}
+  m_PrefabInternal: {fileID: 604373094}
 --- !u!1001 &607349339
 Prefab:
   m_ObjectHideFlags: 0
@@ -8520,13 +8571,14 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1639120023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 275.2701, y: 1.9347473, z: 295.3042}
+  m_LocalPosition: {x: 275.2701, y: 0, z: 295.3042}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 262538065}
   - {fileID: 1651111126}
   - {fileID: 1362783218}
   - {fileID: 569946728}
+  - {fileID: 604373095}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10041,7 +10093,7 @@ Transform:
   m_GameObject: {fileID: 1847264937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1095221134}
   - {fileID: 1851262429}
@@ -10378,6 +10430,14 @@ Prefab:
     - target: {fileID: 457422, guid: e66a1fced7d26cb41a21762c1147d32f, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471274, guid: e66a1fced7d26cb41a21762c1147d32f, type: 2}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471274, guid: e66a1fced7d26cb41a21762c1147d32f, type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e66a1fced7d26cb41a21762c1147d32f, type: 2}
@@ -10867,7 +10927,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.5
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -10933,11 +10993,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpeed: 0
   cameraMain: {fileID: 0}
-  jumpForce: 500
+  jumpForce: 200
   cameraPosition: {x: 0, y: 0, z: 0}
   maxSpeed: 1
   deaccelerationSpeed: 15
-  accelerationSpeed: 50000
+  accelerationSpeed: 20000
   grounded: 0
   bulletSpawn: {fileID: 0}
   been_to_meele_anim: 0
