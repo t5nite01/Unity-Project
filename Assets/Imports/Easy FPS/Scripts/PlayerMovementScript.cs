@@ -233,6 +233,7 @@ public class PlayerMovementScript : MonoBehaviour {
 
 		if (meleeAttack_cooldown > -5) {
 			meleeAttack_cooldown -= 1 * Time.deltaTime;
+      
 		}
 
 

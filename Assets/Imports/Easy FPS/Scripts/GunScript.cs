@@ -37,7 +37,6 @@ public class GunScript : MonoBehaviour {
 	 */
 	void Awake(){
 
-
 		mls = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLookScript>();
 		player = mls.transform;
 		mainCamera = mls.myCamera;
