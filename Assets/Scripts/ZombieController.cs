@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class ZombieController : MonoBehaviour
 {
   private bool close;
@@ -16,6 +17,11 @@ public class ZombieController : MonoBehaviour
   void Start()
   {
 
+  }
+
+    void OnAnimatorMove()
+  {
+      nav.velocity = zombieAnimator.deltaPosition / Time.deltaTime;
   }
 
   // Update is called once per frame
@@ -62,5 +68,11 @@ public class ZombieController : MonoBehaviour
     //enemyHealth = GetComponent<EnemyHealth>();
     nav = GetComponent<NavMeshAgent>();
     zombieAnimator = GetComponentInParent<Animator>();
+  }
+  public void kill(){
+    zombieAnimator.ResetTrigger("Attacking");
+    zombieAnimator.ResetTrigger("Moving");
+    zombieAnimator.SetTrigger("Dead");
+    this.enabled = false;
   }
 }

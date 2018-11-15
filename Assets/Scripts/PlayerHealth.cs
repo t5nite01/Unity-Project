@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
         if(damaged)
         {
             // ... set the colour of the damageImage to the flash colour.
-            damageImage.color = flashColour;
+            //damageImage.color = flashColour;
         }
         // Otherwise...
         else
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
 
         // Play the hurt sound effect.
-        playerAudio.Play ();
+        //playerAudio.Play ();
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if(currentHealth <= 0 && !isDead)
@@ -82,14 +82,14 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
 
         // Turn off any remaining shooting effects.
-        playerShooting.DisableEffects ();
+        //playerShooting.DisableEffects ();
 
         // Tell the animator that the player is dead.
-        anim.SetTrigger ("Die");
+        //anim.SetTrigger ("Die");
 
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        playerAudio.clip = deathClip;
-        playerAudio.Play ();
+        //playerAudio.clip = deathClip;
+        //playerAudio.Play ();
 
         // Turn off the movement and shooting scripts.
         playerMovement.enabled = false;
