@@ -32,7 +32,7 @@ public class BulletScript : MonoBehaviour {
 					Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
           EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
           if (enemyHealth != null) {
-              enemyHealth.TakeDamage(25,hit.point);
+              enemyHealth.TakeDamage(25, hit.point);
           }
 
 					Destroy(gameObject);

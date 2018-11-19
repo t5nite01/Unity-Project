@@ -90,6 +90,14 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
 
         gameOverPanel.SetActive(true);
+        // Get score and kills to score screen.
+        Text gameOverScoreText = GameObject.Find("GameOverScoreText").GetComponent<Text>();
+        Text gameOverKillsText = GameObject.Find("GameOverKillsText").GetComponent<Text>();
+        gameOverScoreText.text = "Score: " + Mathf.RoundToInt(GetComponent<ScoreManager>().getScore()).ToString();
+        gameOverKillsText.text = "Kills: " + GetComponent<ScoreManager>().getKills().ToString();
+        // Stop score script
+        GetComponent<ScoreManager>().stop();
+        // Disable unwanted player input
         playerMovement.enabled = false;
         mouseLook.enabled = false;
         gunInventory.DeadMethod();
@@ -104,9 +112,5 @@ public class PlayerHealth : MonoBehaviour
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         //playerAudio.clip = deathClip;
         //playerAudio.Play ();
-
-        // Turn off the movement and shooting scripts.
-        //playerMovement.enabled = false;
-        //playerShooting.enabled = false;
     }       
 }

@@ -17,6 +17,7 @@ public class EnemyHealth : MonoBehaviour
   Rigidbody rigidbody;
   EnemyAttack enemyAttack; 
   ZombieController zombieController;
+  ScoreManager scoreManager;
   bool isDead;                                // Whether the enemy is dead.
   bool isSinking;                             // Whether the enemy has started sinking through the floor.
   
@@ -29,8 +30,9 @@ public class EnemyHealth : MonoBehaviour
     capsuleCollider = GetComponent<CapsuleCollider>();
     rigidbody = GetComponent<Rigidbody>();
     enemyAttack = GetComponent<EnemyAttack>();
-
     zombieController = GetComponent<ZombieController>();
+    scoreManager = GameObject.FindWithTag("Player").GetComponent<ScoreManager>();
+
     // Setting the current health when the enemy first spawns.
     currentHealth = startingHealth;
   }
@@ -77,12 +79,13 @@ public class EnemyHealth : MonoBehaviour
   void Death()
   {
     // The enemy is dead.
+
     isDead = true;
     zombieController.kill();
     // Turn the collider into a trigger so shots can pass through it.
     capsuleCollider.isTrigger = true;
     rigidbody.useGravity = false;
-
+    scoreManager.addKillAndScore(scoreValue);
     // Tell the animator that the enemy is dead.
     //anim.SetTrigger("Dead");
 
@@ -91,7 +94,6 @@ public class EnemyHealth : MonoBehaviour
     //enemyAudio.Play();
     StartSinking();
   }
-
 
   public void StartSinking()
   {
@@ -104,9 +106,6 @@ public class EnemyHealth : MonoBehaviour
     //start enemy sink after 1 second
     Invoke("sink", 1f);
   
-    // Increase the score by the enemy's score value.
-    ScoreManager.score += scoreValue;
-
     // After 2 seconds destory the enemy.
     Destroy(gameObject, 2f);
   }

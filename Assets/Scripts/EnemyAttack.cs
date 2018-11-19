@@ -12,7 +12,6 @@ public class EnemyAttack : MonoBehaviour
     bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
     float timer;                                // Timer for counting up to the next attack.
 
-
     void Awake ()
     {
         // Setting up the references.
@@ -21,7 +20,6 @@ public class EnemyAttack : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent <Animator> ();
     }
-
 
     void OnTriggerEnter (Collider other)
     {
@@ -43,7 +41,6 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-
     void Update ()
     {
         // Add the time since Update was last called to the timer.
@@ -62,7 +59,7 @@ public class EnemyAttack : MonoBehaviour
         if(playerHealth.currentHealth <= 0)
         {
             // ... tell the animator the player is dead.
-//            anim.SetTrigger ("PlayerDead");
+            //anim.SetTrigger ("PlayerDead");
         }
     }
 
