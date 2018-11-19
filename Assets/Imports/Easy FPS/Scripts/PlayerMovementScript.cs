@@ -58,10 +58,12 @@ public class PlayerMovementScript : MonoBehaviour {
 				deaccelerationSpeed);
 		}
 
-		if (grounded) {
-			rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed * Time.deltaTime);
+        float groundclamp = -3000;
+
+        if (grounded) {
+			rb.AddRelativeForce (Input.GetAxisRaw("Horizontal") * accelerationSpeed * Time.deltaTime, groundclamp, Input.GetAxisRaw("Vertical") * accelerationSpeed * Time.deltaTime);
 		} else {
-			rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed / 2 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed / 2 * Time.deltaTime);
+			rb.AddRelativeForce (Input.GetAxis("Horizontal") * accelerationSpeed / 2 * Time.deltaTime, 0, Input.GetAxis("Vertical") * accelerationSpeed / 2 * Time.deltaTime);
 
 		}
 		/*
@@ -82,7 +84,7 @@ public class PlayerMovementScript : MonoBehaviour {
 			if (_jumpSound)
 				_jumpSound.Play ();
 			else
-				print ("Missig jump sound.");
+				print ("Missing jump sound.");
 			_walkSound.Stop ();
 			_runSound.Stop ();
 		}
