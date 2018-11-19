@@ -11580,7 +11580,7 @@ GameObject:
   - component: {fileID: 1784285945}
   - component: {fileID: 1784285944}
   m_Layer: 5
-  m_Name: KillsText
+  m_Name: GameOverKillsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
