@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.AI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -14,10 +15,13 @@ public class PlayerHealth : MonoBehaviour
 
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    PlayerMovement playerMovement;                              // Reference to the player's movement.
-    PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
+    PlayerMovementScript playerMovement;                        // Reference to the player's movement.
+    MouseLookScript mouseLook;                                  // Reference to the player's mouse look.
+    GunInventory gunInventory;                                  // Reference to the PlayerShooting script.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
+    
+    private GameObject gameOverPanel;
 
 
     void Awake ()
@@ -25,8 +29,12 @@ public class PlayerHealth : MonoBehaviour
         // Setting up the references.
         anim = GetComponent <Animator> ();
         playerAudio = GetComponent <AudioSource> ();
-        playerMovement = GetComponent <PlayerMovement> ();
-        playerShooting = GetComponentInChildren <PlayerShooting> ();
+        playerMovement = GetComponent <PlayerMovementScript> ();
+        mouseLook = GetComponent<MouseLookScript> ();
+        gunInventory = GetComponentInChildren <GunInventory> ();
+
+        gameOverPanel = GameObject.Find("GameOverPanel");
+        gameOverPanel.SetActive(false);
 
         // Set the initial health of the player.
         currentHealth = startingHealth;
@@ -81,8 +89,14 @@ public class PlayerHealth : MonoBehaviour
         // Set the death flag so this function won't be called again.
         isDead = true;
 
+        gameOverPanel.SetActive(true);
+        playerMovement.enabled = false;
+        mouseLook.enabled = false;
+        gunInventory.DeadMethod();
+        Cursor.lockState = CursorLockMode.None;
+
         // Turn off any remaining shooting effects.
-        //playerShooting.DisableEffects ();
+        //playerShooting.DisableEffects();
 
         // Tell the animator that the player is dead.
         //anim.SetTrigger ("Die");
