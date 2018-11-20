@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //using UnityStandardAssets.ImageEffects;
 
 public enum GunStyles{
@@ -511,11 +512,11 @@ public class GunScript : MonoBehaviour {
 	 * And drawing CrossHair from here.
 	 */
 	[Tooltip("HUD bullets to display bullet count on screen. Will be find under name 'HUD_bullets' in scene.")]
-	public TextMesh HUD_bullets;
+	public Text HUD_bullets;
 	void OnGUI(){
 		if(!HUD_bullets){
 			try{
-				HUD_bullets = GameObject.Find("HUD_bullets").GetComponent<TextMesh>();
+			  HUD_bullets = GameObject.Find("HUD_bullets").GetComponent<Text>();
 			}
 			catch(System.Exception ex){
 				print("Couldnt find the HUD_Bullets ->" + ex.StackTrace.ToString());
