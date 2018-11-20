@@ -20,7 +20,13 @@ public class PlayerMovementScript : MonoBehaviour {
 	 */
 	void Awake(){
 		rb = GetComponent<Rigidbody>();
-		cameraMain = transform.Find("Main Camera").transform;
+
+        // if camera is under Armature:Hips:Spine:Neck:Head
+        //GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        //cameraMain = cameraObject.transform;
+
+        //if camera is under Player
+        cameraMain = transform.Find("Main Camera").transform;
 		bulletSpawn = cameraMain.Find("BulletSpawn").transform;
 		ignoreLayer = 1 << LayerMask.NameToLayer ("Player");
 

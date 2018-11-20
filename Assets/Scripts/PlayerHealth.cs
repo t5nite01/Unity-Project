@@ -89,6 +89,9 @@ public class PlayerHealth : MonoBehaviour
         // Set the death flag so this function won't be called again.
         isDead = true;
 
+        // Tell the animator that the player is dead.
+        anim.SetTrigger("Dead");
+
         gameOverPanel.SetActive(true);
         // Get score and kills to score screen.
         Text gameOverScoreText = GameObject.Find("GameOverScoreText").GetComponent<Text>();
@@ -105,9 +108,6 @@ public class PlayerHealth : MonoBehaviour
 
         // Turn off any remaining shooting effects.
         //playerShooting.DisableEffects();
-
-        // Tell the animator that the player is dead.
-        //anim.SetTrigger ("Die");
 
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         //playerAudio.clip = deathClip;
