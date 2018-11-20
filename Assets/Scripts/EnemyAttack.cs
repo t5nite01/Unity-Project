@@ -47,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
         timer += Time.deltaTime;
 
         // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
-        if(timer >= timeBetweenAttacks && 1.5 > Vector3.Distance(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z),
+        if(timer >= timeBetweenAttacks && 2 > Vector3.Distance(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z),
                             new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)) && enemyHealth.currentHealth > 0)
         {
             // ... attack.

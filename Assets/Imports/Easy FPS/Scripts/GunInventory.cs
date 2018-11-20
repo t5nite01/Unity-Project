@@ -151,14 +151,11 @@ public class GunInventory : MonoBehaviour {
         {
           secondaryGun.SetActive(false);
           primaryGun.SetActive(true);
-          //Destroy(currentGun);
           currentGun = primaryGun;
         } 
         else if (weaponIndex == 1){
           primaryGun.SetActive(false);
           secondaryGun.SetActive(true);
-          //primaryGun = currentGun;
-          //Destroy(currentGun);
           currentGun = secondaryGun;
         
         } 
@@ -258,9 +255,6 @@ public class GunInventory : MonoBehaviour {
 					icons[_number]);
 			}
 		}
-
-
-
 	}
 
 	/*
@@ -270,7 +264,6 @@ public class GunInventory : MonoBehaviour {
 		Destroy (currentGun);
 		Destroy (this);
 	}
-
 
 	//#####		RETURN THE SIZE AND POSITION for GUI images
 	//(we pass in the percentage and it returns some number to appear in that percentage on the sceen) ##################

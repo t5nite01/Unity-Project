@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-  public PlayerHealth playerHealth;       // Reference to the player's heatlh.
+  public PlayerHealth playerHealth;  // Reference to the player's heatlh.
+  public GameObject player;               // ref to player position.
   public GameObject enemy;                // The enemy prefab to be spawned.
   public float spawnTime = 7f;            // How long between each spawn.
   public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
@@ -10,6 +11,7 @@ public class EnemyManager : MonoBehaviour
   private float runtime;
   void Start()
   {
+    player = GameObject.Find("Player");
     // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
     InvokeRepeating("Spawn", spawnTime, spawnTime);
   }
@@ -43,7 +45,13 @@ public class EnemyManager : MonoBehaviour
     // Find a random index between zero and one less than the number of spawn points.
     int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-    // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-    Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+    // Spawn enemies if closer than 20m
+    if (50 > Vector3.Distance(spawnPoints[spawnPointIndex].position, player.transform.position))
+    {
+      // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
+      Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+    } else {
+      Invoke("Spawn", 0.1f);
+    }
   }
 }
