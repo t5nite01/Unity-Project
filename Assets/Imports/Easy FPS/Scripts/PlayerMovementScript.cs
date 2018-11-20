@@ -61,7 +61,7 @@ public class PlayerMovementScript : MonoBehaviour {
         float groundclamp = -3000;
 
         if (grounded) {
-			rb.AddRelativeForce (Input.GetAxisRaw("Horizontal") * accelerationSpeed * Time.deltaTime, groundclamp, Input.GetAxisRaw("Vertical") * accelerationSpeed * Time.deltaTime);
+			rb.AddRelativeForce (Input.GetAxis("Horizontal") * accelerationSpeed * Time.deltaTime, groundclamp, Input.GetAxis("Vertical") * accelerationSpeed * Time.deltaTime);
 		} else {
 			rb.AddRelativeForce (Input.GetAxis("Horizontal") * accelerationSpeed / 2 * Time.deltaTime, 0, Input.GetAxis("Vertical") * accelerationSpeed / 2 * Time.deltaTime);
 
