@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
       startingHealth = startingHealth * (int) difficulty;
       enemyAttack.setAttackDamage(attackDamage * (int) difficulty);
     }
-     */
+    */
   } 
 
   void Spawn()
