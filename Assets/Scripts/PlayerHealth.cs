@@ -82,7 +82,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
     void Death ()
     {
         // Set the death flag so this function won't be called again.
@@ -90,6 +89,12 @@ public class PlayerHealth : MonoBehaviour
 
         // Tell the animator that the player is dead.
         anim.SetTrigger("Dead");
+
+        // Move the camera up and rotate to look down
+        Transform cameraMain = transform.Find("Main Camera").transform;
+        Vector3 cameraPosition = new Vector3(cameraMain.position.x, cameraMain.position.y + 5f, cameraMain.position.z);
+        Quaternion cameraRotation = Quaternion.Euler(90f, cameraMain.rotation.y, cameraMain.rotation.z);
+        cameraMain.SetPositionAndRotation(cameraPosition, cameraRotation);
 
         gameOverPanel.SetActive(true);
         // Get score and kills to score screen.
