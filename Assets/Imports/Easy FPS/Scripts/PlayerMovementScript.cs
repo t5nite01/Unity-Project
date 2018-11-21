@@ -13,13 +13,19 @@ public class PlayerMovementScript : MonoBehaviour {
 	public float jumpForce = 500;
 	[Tooltip("Position of the camera inside the player")]
 	[HideInInspector]public Vector3 cameraPosition;
+    
+    float m_CapsuleHeight;
+    CapsuleCollider m_Capsule;
+    bool m_Crouching;
 
-	/*
+    /*
 	 * Getting the Players rigidbody component.
 	 * And grabbing the mainCamera from Players child transform.
 	 */
-	void Awake(){
+    void Awake(){
 		rb = GetComponent<Rigidbody>();
+        m_Capsule = GetComponent<CapsuleCollider>();
+        m_CapsuleHeight = m_Capsule.height;
 
         // if camera is under Armature:Hips:Spine:Neck:Head
         //GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
@@ -99,21 +105,21 @@ public class PlayerMovementScript : MonoBehaviour {
 	* Update loop calling other stuff
 	*/
 	void Update(){
-		
 
 		Jumping ();
 
 		Crouching();
+        PreventStandingInLowHeadroom();
 
-		WalkingSound ();
+        WalkingSound ();
 
 
-	}//end update
+    }//end update
 
-	/*
+    /*
 	* Checks if player is grounded and plays the sound accorindlgy to his speed
 	*/
-	void WalkingSound(){
+    void WalkingSound(){
 		if (_walkSound && _runSound) {
 			if (RayCastGrounded ()) { //for walk sounsd using this because suraface is not straigh			
 				if (currentSpeed > 1) {
@@ -174,15 +180,30 @@ public class PlayerMovementScript : MonoBehaviour {
 	void Crouching(){
 		if(Input.GetKey(KeyCode.C)){
 			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,0.6f,1), Time.deltaTime * 15);
-		}
+            m_Crouching = true;
+        }
 		else{
 			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,1,1), Time.deltaTime * 15);
+            m_Crouching = false;
+        }
+    }
 
-		}
-	}
+    void PreventStandingInLowHeadroom()
+    {
+        // prevent standing up in crouch-only zones
+        if (!m_Crouching)
+        {
+            Ray crouchRay = new Ray(rb.position + Vector3.up * m_Capsule.radius * 0.6f, Vector3.up);
+            float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * 0.6f;
+            if (Physics.SphereCast(crouchRay, m_Capsule.radius * 0.6f, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+            {
+                m_Crouching = true;
+            }
+        }
+    }
 
 
-	[Tooltip("The maximum speed you want to achieve")]
+    [Tooltip("The maximum speed you want to achieve")]
 	public int maxSpeed = 5;
 	[Tooltip("The higher the number the faster it will stop")]
 	public float deaccelerationSpeed = 15.0f;

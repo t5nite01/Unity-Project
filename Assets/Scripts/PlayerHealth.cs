@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
     
     private GameObject gameOverPanel;
 
-
     void Awake ()
     {
         // Setting up the references.
