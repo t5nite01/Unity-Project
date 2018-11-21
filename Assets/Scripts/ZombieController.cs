@@ -26,45 +26,55 @@ public class ZombieController : MonoBehaviour
 
   // Update is called once per frame
   void Update()
-  {
+    {
+        // Switch between idle and walk
+        // If the enemy and the player have health left...
+        //if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
 
-    // Switch between idle and walk
-    // If the enemy and the player have health left...
-    //if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
-    if (close == false && 1.8 < Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
-                              new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
-    {
-      // ... set the destination of the nav mesh agent to the player.
-      nav.enabled = true;
-      
-      nav.SetDestination(player.position);
-      zombieAnimator.SetTrigger("Moving");
-    }
-    else
-    {
-      zombieAnimator.ResetTrigger("Moving");
-      close = true;
-    }
+        // If the player is dead...
+        if(playerHealth.currentHealth <= 0f)
+        {
+            nav.enabled = false;
+            zombieAnimator.ResetTrigger("Moving");
+            zombieAnimator.ResetTrigger("Attacking");
+        }
+        else
+        {
+            if (close == false && 1.8 < Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
+                                      new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
+            {
+                // ... set the destination of the nav mesh agent to the player.
+                nav.enabled = true;
 
-    // Otherwise...
-    if (close == true && 2.5 > Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
-                            new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
-    {
-      zombieAnimator.SetTrigger("Attacking");
-      nav.enabled = false;
+                nav.SetDestination(player.position);
+                zombieAnimator.SetTrigger("Moving");
+            }
+            else
+            {
+                zombieAnimator.ResetTrigger("Moving");
+                close = true;
+            }
+
+            // Otherwise...
+            if (close == true && 2.5 > Vector3.Distance(new Vector3(player.position.x, player.position.y, player.position.z),
+                                    new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z)))
+            {
+                zombieAnimator.SetTrigger("Attacking");
+                nav.enabled = false;
+            }
+            else
+            {
+                close = false;
+                zombieAnimator.ResetTrigger("Attacking");
+            }
+        }
     }
-    else
-    {
-      close = false;
-      zombieAnimator.ResetTrigger("Attacking");
-    }
-  }
 
   void Awake()
   {
     // Set up the references.
     player = GameObject.FindGameObjectWithTag("Player").transform;
-    //playerHealth = player.GetComponent<PlayerHealth>();
+    playerHealth = player.GetComponent<PlayerHealth>();
     //enemyHealth = GetComponent<EnemyHealth>();
     nav = GetComponent<NavMeshAgent>();
     zombieAnimator = GetComponentInParent<Animator>();

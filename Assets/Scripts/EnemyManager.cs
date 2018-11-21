@@ -38,8 +38,10 @@ public class EnemyManager : MonoBehaviour
     // If the player has no health left...
     if (playerHealth.currentHealth <= 0f)
     {
-      // ... exit the function.
-      return;
+        // Disable spawning
+        CancelInvoke("Spawn");
+        // ... exit the function.
+        return;
     }
 
     // Find a random index between zero and one less than the number of spawn points.
