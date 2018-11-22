@@ -75,11 +75,12 @@ public class EnemyHealth : MonoBehaviour
     }
   }
 
-
+  public void setHealthByScale(float scale){
+    float newHealth = (currentHealth * scale);
+    currentHealth = Mathf.RoundToInt(newHealth);
+  }
   void Death()
   {
-    // The enemy is dead.
-
     isDead = true;
     zombieController.kill();
     // Turn the collider into a trigger so shots can pass through it.

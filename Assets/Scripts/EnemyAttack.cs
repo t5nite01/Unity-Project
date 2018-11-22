@@ -78,8 +78,7 @@ public class EnemyAttack : MonoBehaviour
     }
 
 
-    public float setAttackDamage(int damage){
-      attackDamage = damage;
-      return 0;
+    public void setAttackDamageByScale(float scale){
+      attackDamage = Mathf.RoundToInt(attackDamage * scale);
     }
 }

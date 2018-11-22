@@ -6,31 +6,41 @@ using UnityEngine.AI;
 public class ZombieController : MonoBehaviour
 {
   private bool close;
+  private float difficultyScaler;
   GameObject zombie;
   Animator zombieAnimator;
   Animation zombieAnimation;
   Transform player;               // Reference to the player's position.
   PlayerHealth playerHealth;      // Reference to the player's health.
   EnemyHealth enemyHealth;        // Reference to this enemy's health.
+  EnemyAttack enemyAttack;
   NavMeshAgent nav;               // Reference to the nav mesh agent.
-                                  // Use this for initialization
+
   void Start()
   {
-
+    
   }
 
-    void OnAnimatorMove()
+  void Awake()
   {
-      nav.velocity = zombieAnimator.deltaPosition / Time.deltaTime;
+    // Set up the references.
+    player = GameObject.FindGameObjectWithTag("Player").transform;
+    playerHealth = player.GetComponent<PlayerHealth>();
+    enemyHealth = GetComponent<EnemyHealth>();
+    enemyAttack = GetComponent<EnemyAttack>();
+    nav = GetComponent<NavMeshAgent>();
+    zombieAnimator = GetComponentInParent<Animator>();
+  }
+
+  void OnAnimatorMove()
+  {
+    zombieAnimator.speed = 1 * difficultyScaler;
+    nav.velocity = zombieAnimator.deltaPosition / Time.deltaTime * difficultyScaler;
   }
 
   // Update is called once per frame
   void Update()
     {
-        // Switch between idle and walk
-        // If the enemy and the player have health left...
-        //if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
-
         // If the player is dead...
         if(playerHealth.currentHealth <= 0f)
         {
@@ -70,19 +80,13 @@ public class ZombieController : MonoBehaviour
         }
     }
 
-  void Awake()
-  {
-    // Set up the references.
-    player = GameObject.FindGameObjectWithTag("Player").transform;
-    playerHealth = player.GetComponent<PlayerHealth>();
-    //enemyHealth = GetComponent<EnemyHealth>();
-    nav = GetComponent<NavMeshAgent>();
-    zombieAnimator = GetComponentInParent<Animator>();
-  }
   public void kill(){
     zombieAnimator.ResetTrigger("Attacking");
     zombieAnimator.ResetTrigger("Moving");
     zombieAnimator.SetTrigger("Dead");
     this.enabled = false;
+  }
+  public void setDifficultyScale(float scale){
+    difficultyScaler = scale;
   }
 }
