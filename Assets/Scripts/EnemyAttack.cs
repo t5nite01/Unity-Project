@@ -19,6 +19,9 @@ public class EnemyAttack : MonoBehaviour
         playerHealth = player.GetComponent <PlayerHealth> ();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent <Animator> ();
+        // Reset
+        attackDamage = 10;
+
     }
 
     void OnTriggerEnter (Collider other)

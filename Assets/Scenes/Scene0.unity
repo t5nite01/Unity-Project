@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4418867, g: 0.49083215, b: 0.5707898, a: 1}
+  m_IndirectSpecularColor: {r: 0.06603122, g: 0.073985, b: 0.09473524, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1265,7 +1265,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.15641688, g: 0.20644748, b: 0.3490566, a: 1}
-  m_Intensity: 1
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -8027,7 +8027,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 488024133}
   player: {fileID: 0}
-  enemy: {fileID: 1838637918591898, guid: 755950a3c6644234c91a2087d164660c, type: 2}
   spawnTime: 3
   spawnPoints:
   - {fileID: 2138110141}

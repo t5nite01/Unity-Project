@@ -187,7 +187,7 @@ public class GunScript : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.LeftShift)) {
 				if (pmS.maxSpeed == walkingSpeed) {
 					pmS.maxSpeed = runningSpeed;//sets player movement peed to max
-
+          
 				} else {
 					pmS.maxSpeed = walkingSpeed;
 				}
@@ -226,6 +226,7 @@ public class GunScript : MonoBehaviour {
 	*/
 	IEnumerator AnimationMeeleAttack(){
 		handsAnimator.SetBool("meeleAttack",true);
+    // melee damage implementation here.
 		//yield return new WaitForEndOfFrame();
 		yield return new WaitForSeconds(0.1f);
 		handsAnimator.SetBool("meeleAttack",false);

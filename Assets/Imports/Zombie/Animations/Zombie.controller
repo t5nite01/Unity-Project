@@ -442,7 +442,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: idle
-  m_Speed: 2
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101275482001001910}
@@ -553,7 +553,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: fallingback
-  m_Speed: 1.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -618,7 +618,7 @@ AnimatorStateMachine:
     m_Position: {x: 588, y: 516, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102855838834803854}
-    m_Position: {x: 336, y: 516, z: 0}
+    m_Position: {x: 324, y: 516, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102903304451054828}
     m_Position: {x: 636, y: 312, z: 0}

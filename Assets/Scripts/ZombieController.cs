@@ -30,6 +30,8 @@ public class ZombieController : MonoBehaviour
     enemyAttack = GetComponent<EnemyAttack>();
     nav = GetComponent<NavMeshAgent>();
     zombieAnimator = GetComponentInParent<Animator>();
+    // Reset 
+    difficultyScaler = 1;
   }
 
   void OnAnimatorMove()
