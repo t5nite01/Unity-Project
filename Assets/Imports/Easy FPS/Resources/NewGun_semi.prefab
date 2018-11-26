@@ -2800,10 +2800,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStyle: 0
   mls: {fileID: 0}
-  walkingSpeed: 3
-  runningSpeed: 5
+  walkingSpeed: 4
+  runningSpeed: 6
   bulletsIHave: 180
-  bulletsInTheGun: 33
+  bulletsInTheGun: 30
   amountOfBulletsPerLoad: 30
   currentGunPosition: {x: 0, y: 0, z: 0}
   restPlacePosition: {x: -0.07, y: -0.06, z: 0.4}
