@@ -2625,10 +2625,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStyle: 1
   mls: {fileID: 0}
-  walkingSpeed: 3
-  runningSpeed: 5
+  walkingSpeed: 4
+  runningSpeed: 6
   bulletsIHave: 180
-  bulletsInTheGun: 33
+  bulletsInTheGun: 30
   amountOfBulletsPerLoad: 30
   currentGunPosition: {x: 0, y: 0, z: 0}
   restPlacePosition: {x: -0.07, y: -0.06, z: 0.42}
@@ -2645,16 +2645,16 @@ MonoBehaviour:
   forwardRotationAmount: {x: 1, y: 1}
   bulletSpawnPlace: {fileID: 0}
   bullet: {fileID: 128836, guid: c9e619a669d974fd28b5c89e43f2bce2, type: 2}
-  roundsPerSecond: 10
+  roundsPerSecond: 12
   recoilAmount_z: 0.04
   recoilAmount_x: 0.04
   recoilAmount_y: 0.04
-  recoilAmount_z_non: 0.02
-  recoilAmount_x_non: 0.01
+  recoilAmount_z_non: 0.013
+  recoilAmount_x_non: 0.006
   recoilAmount_y_non: 0.01
-  recoilAmount_z_: 0.01
-  recoilAmount_x_: 0.005
-  recoilAmount_y_: 0.005
+  recoilAmount_z_: 0.007
+  recoilAmount_x_: 0.003
+  recoilAmount_y_: 0.003
   velocity_z_recoil: 0
   velocity_x_recoil: 0
   velocity_y_recoil: 0

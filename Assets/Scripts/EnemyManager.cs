@@ -39,20 +39,20 @@ public class EnemyManager : MonoBehaviour
         return;
     }
     
-    // Sort available spawnpoints
+    // Filter available spawnpoints
     Transform[] viableSpawns = new Transform[spawnPoints.Length];
     
     for(int i = 1; i < spawnPoints.Length; i++){
 
       float distanceFromPlayer = Vector3.Distance(spawnPoints[i].position, player.transform.position);
       
+      // Spawn enemies if closer than 50m and farther than 10m
       if(distanceFromPlayer > 10 && 50 < distanceFromPlayer){
         viableSpawns[i] = spawnPoints[i];
       }
     }
 
     int spawnPointIndex = Random.Range(0, viableSpawns.Length);
-    // Spawn enemies if closer than 50m and farther than 10m
     
     // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
     GameObject newObject;
