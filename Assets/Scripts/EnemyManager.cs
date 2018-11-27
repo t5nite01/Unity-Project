@@ -57,6 +57,24 @@ public class EnemyManager : MonoBehaviour
     // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
     GameObject newObject;
     newObject = Instantiate(Resources.Load("Prefabs/Zombie", typeof(GameObject))) as GameObject;
+
+    /* Get the random number to load a random texture for Zombie
+    * 
+    * If using FLOATS, the min and max value are inclusive, if using INTEGERS, the max value is exclusive.
+    * Examples: 
+    * When defining Random.Range(1.0f, 3.0f) we will get results from 1.0 to 3.0 
+    * When defining Random.Range(1, 3) we will get results from 1 to 2 
+    */
+    int randomNumber = Random.Range(1, 4);
+
+    // Get child components of Zombie and set random textures for new Zombie
+    Component[] renderers = newObject.GetComponentsInChildren(typeof(Renderer));
+    foreach (Renderer childRenderer in renderers)
+    {
+        Texture zombieTexture = Resources.Load("Textures/Zombie/Zombie_albedo_" + randomNumber, typeof(Texture)) as Texture;
+        childRenderer.material.SetTexture("_MainTex", zombieTexture);
+     }
+
     newObject.GetComponent<EnemyHealth>().setHealthByScale(difficultyScaler);
     newObject.GetComponent<EnemyAttack>().setAttackDamageByScale(difficultyScaler);
     newObject.GetComponent<ZombieController>().setDifficultyScale(difficultyScaler);
