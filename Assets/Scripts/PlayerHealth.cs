@@ -13,24 +13,33 @@ public class PlayerHealth : MonoBehaviour
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 
+    Transform cameraMain;                                       // Reference to the MainCamera's transform.
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerMovementScript playerMovement;                        // Reference to the player's movement.
     MouseLookScript mouseLook;                                  // Reference to the player's mouse look.
     GunInventory gunInventory;                                  // Reference to the PlayerShooting script.
+    SkinnedMeshRenderer skinnedMeshRenderer;                    // Reference to the player's Skinned Mesh Renderer.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
     
     private GameObject gameOverPanel;
 
+    private IEnumerator deathCamera;
+
     void Awake ()
     {
         // Setting up the references.
+        cameraMain = transform.Find("Main Camera").transform;
         anim = GetComponent <Animator> ();
         playerAudio = GetComponent <AudioSource> ();
         playerMovement = GetComponent <PlayerMovementScript> ();
         mouseLook = GetComponent<MouseLookScript> ();
         gunInventory = GetComponentInChildren <GunInventory> ();
+        skinnedMeshRenderer = GameObject.Find("Men_4").GetComponent<SkinnedMeshRenderer>();
+        
+        // Don't show the player body
+        skinnedMeshRenderer.enabled = false;
 
         gameOverPanel = GameObject.Find("GameOverPanel");
         gameOverPanel.SetActive(false);
@@ -81,20 +90,23 @@ public class PlayerHealth : MonoBehaviour
             Death ();
         }
     }
-
+    
     void Death ()
     {
         // Set the death flag so this function won't be called again.
         isDead = true;
 
+        // Show the player body
+        skinnedMeshRenderer.enabled = true;
+
         // Tell the animator that the player is dead.
         anim.SetTrigger("Dead");
 
         // Move the camera up and rotate to look down
-        Transform cameraMain = transform.Find("Main Camera").transform;
-        Vector3 cameraPosition = new Vector3(cameraMain.position.x, cameraMain.position.y + 5f, cameraMain.position.z);
-        Quaternion cameraRotation = Quaternion.Euler(90f, cameraMain.rotation.y, cameraMain.rotation.z);
-        cameraMain.SetPositionAndRotation(cameraPosition, cameraRotation);
+        Vector3 deathPosition = cameraMain.position;
+        Vector3 targetPosition = new Vector3(deathPosition.x, deathPosition.y + 5f, deathPosition.z);
+        deathCamera = DeathCamera(0, deathPosition, targetPosition);
+        StartCoroutine(deathCamera);
 
         gameOverPanel.SetActive(true);
         // Get score and kills to score screen.
@@ -116,5 +128,22 @@ public class PlayerHealth : MonoBehaviour
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         //playerAudio.clip = deathClip;
         //playerAudio.Play ();
-    }       
+    }
+
+
+    private Vector3 cameraVelocity = Vector3.zero;
+    public IEnumerator DeathCamera(float timeCount, Vector3 deathPosition, Vector3 targetPosition)
+    {
+        while (true)
+        {
+            cameraMain.localRotation = Quaternion.Slerp(cameraMain.localRotation, Quaternion.Euler(90, 0, 180), timeCount);
+            cameraMain.position = Vector3.SmoothDamp(cameraMain.position, targetPosition, ref cameraVelocity, 2f);
+            if(targetPosition.y - cameraMain.position.y <= 1f)
+            {
+                StopCoroutine(deathCamera);
+            }
+            timeCount = timeCount + Time.deltaTime * 0.03f;
+            yield return 0;
+        }
+    }
 }
