@@ -23,8 +23,8 @@ public class GameOver : MonoBehaviour
     // Start game button
     public void RestartClick()
     {
-        string scene = "Scene0";
-        StartCoroutine(LoadScene(scene));
+      Scene scene = SceneManager.GetActiveScene();
+      StartCoroutine(LoadScene(scene.name));
     }
 
     IEnumerator LoadScene(string scene)
@@ -42,5 +42,4 @@ public class GameOver : MonoBehaviour
         string scene = "StartScreen";
         StartCoroutine(LoadScene(scene));
     }
-
 }
