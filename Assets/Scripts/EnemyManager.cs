@@ -65,7 +65,7 @@ public class EnemyManager : MonoBehaviour
     * When defining Random.Range(1.0f, 3.0f) we will get results from 1.0 to 3.0 
     * When defining Random.Range(1, 3) we will get results from 1 to 2 
     */
-    int randomNumber = Random.Range(1, 4);
+    int randomNumber = Random.Range(1, 6);
 
     // Get child components of Zombie and set random textures for new Zombie
     Component[] renderers = newObject.GetComponentsInChildren(typeof(Renderer));
