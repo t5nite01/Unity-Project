@@ -9,7 +9,8 @@ public class EnemyHealth : MonoBehaviour
   public float sinkSpeed = 2f;              // The speed at which the enemy sinks through the floor when dead.
   public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
   public AudioClip deathClip;                 // The sound to play when the enemy dies.
-
+  public AudioClip damageSound;
+  public AudioClip walkSound;
   Animator anim;                              // Reference to the animator.
   AudioSource enemyAudio;                     // Reference to the audio source.
   ParticleSystem hitParticles;                // Reference to the particle system that plays when the enemy is damaged.
@@ -18,12 +19,15 @@ public class EnemyHealth : MonoBehaviour
   EnemyAttack enemyAttack; 
   ZombieController zombieController;
   ScoreManager scoreManager;
+  private AudioSource zombieAS;
+  
   bool isDead;                                // Whether the enemy is dead.
   bool isSinking;                             // Whether the enemy has started sinking through the floor.
   
   void Awake()
   {
     // Setting up the references.
+    zombieAS = GetComponent<AudioSource>();
     anim = GetComponent<Animator>();
     enemyAudio = GetComponent<AudioSource>();
     hitParticles = GetComponentInChildren<ParticleSystem>();
@@ -56,7 +60,7 @@ public class EnemyHealth : MonoBehaviour
       return;
 
     // Play the hurt sound effect.
-    //enemyAudio.Play();
+    zombieAS.PlayOneShot(damageSound);
 
     // Reduce the current health by the amount of damage sustained.
     currentHealth -= amount;
@@ -79,6 +83,7 @@ public class EnemyHealth : MonoBehaviour
     float newHealth = (currentHealth * scale);
     currentHealth = Mathf.RoundToInt(newHealth);
   }
+
   void Death()
   {
     isDead = true;
@@ -87,12 +92,10 @@ public class EnemyHealth : MonoBehaviour
     capsuleCollider.isTrigger = true;
     rigidbody.useGravity = false;
     scoreManager.addKillAndScore(scoreValue);
-    // Tell the animator that the enemy is dead.
-    //anim.SetTrigger("Dead");
 
     // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
-    //enemyAudio.clip = deathClip;
-    //enemyAudio.Play();
+    zombieAS.PlayOneShot(deathClip);
+
     StartSinking();
   }
 
