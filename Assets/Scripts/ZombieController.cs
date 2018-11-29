@@ -29,7 +29,7 @@ public class ZombieController : MonoBehaviour
     enemyHealth = GetComponent<EnemyHealth>();
     enemyAttack = GetComponent<EnemyAttack>();
     nav = GetComponent<NavMeshAgent>();
-    zombieAnimator = GetComponentInParent<Animator>();
+        zombieAnimator = GetComponentInChildren<Animator>();
     // Reset 
     difficultyScaler = 1;
   }
