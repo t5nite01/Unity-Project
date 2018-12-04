@@ -58,7 +58,12 @@ public class ScoreManager : MonoBehaviour
   public int getKills(){
     return kills;
   }
+
   public void stop(){
     running = false;
+  }
+
+  public void resume(){
+    running = true;
   }
 }

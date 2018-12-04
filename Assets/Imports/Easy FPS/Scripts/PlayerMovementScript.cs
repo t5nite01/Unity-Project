@@ -18,8 +18,8 @@ public class PlayerMovementScript : MonoBehaviour {
     CapsuleCollider m_Capsule;
     bool m_Crouching;
 
-    GunInventory gunInventory;
-    GunScript primaryGunScript, secondaryGunScript;
+    private GameObject shopPanel;
+    [HideInInspector] public bool shopping;
 
     /*
 	 * Getting the Players rigidbody component.
@@ -30,8 +30,6 @@ public class PlayerMovementScript : MonoBehaviour {
         m_Capsule = GetComponent<CapsuleCollider>();
         m_CapsuleHeight = m_Capsule.height;
 
-        gunInventory = GetComponentInChildren<GunInventory>();
-
         // if camera is under Armature:Hips:Spine:Neck:Head
         //GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         //cameraMain = cameraObject.transform;
@@ -41,7 +39,11 @@ public class PlayerMovementScript : MonoBehaviour {
 		bulletSpawn = cameraMain.Find("BulletSpawn").transform;
 		ignoreLayer = 1 << LayerMask.NameToLayer ("Player");
 
-	}
+        shopPanel = GameObject.Find("ShopPanel");
+        shopPanel.SetActive(false);
+        shopping = false;
+
+    }
 	private Vector3 slowdownV;
 	private Vector2 horizontalMovement;
 	/*
@@ -109,9 +111,14 @@ public class PlayerMovementScript : MonoBehaviour {
 	/*
 	* Update loop calling other stuff
 	*/
-	void Update(){
+	void Update()
+    {
+        if (!shopping && shopPanel.activeSelf)
+        {
+            shopPanel.SetActive(false);
+        }
 
-		Jumping ();
+        Jumping ();
 
 		Crouching();
         PreventStandingInLowHeadroom();
@@ -247,26 +254,9 @@ public class PlayerMovementScript : MonoBehaviour {
             //... then set the other object we just collided with to inactive.
             other.gameObject.SetActive(false);
 
-            int maxBullets = 180;
-
-            primaryGunScript = gunInventory.primaryGun.GetComponent<GunScript>();
-            if (primaryGunScript.bulletsIHave < maxBullets)
-            {
-                primaryGunScript.bulletsIHave = maxBullets;
-            }
-
-            secondaryGunScript = gunInventory.secondaryGun.GetComponent<GunScript>();
-            if (secondaryGunScript.bulletsIHave < maxBullets)
-            {
-                secondaryGunScript.bulletsIHave = maxBullets;
-            }
+            shopping = true;
+            shopPanel.SetActive(true);
         }
-
-        //Add one to the current value of our count variable.
-        //count = count + 1;
-
-        //Update the currently displayed count by calling the SetCountText function.
-        //SetCountText();
     }
 
     RaycastHit hitInfo;
