@@ -18,6 +18,9 @@ public class PlayerMovementScript : MonoBehaviour {
     CapsuleCollider m_Capsule;
     bool m_Crouching;
 
+    GunInventory gunInventory;
+    GunScript primaryGunScript, secondaryGunScript;
+
     /*
 	 * Getting the Players rigidbody component.
 	 * And grabbing the mainCamera from Players child transform.
@@ -26,6 +29,8 @@ public class PlayerMovementScript : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
         m_CapsuleHeight = m_Capsule.height;
+
+        gunInventory = GetComponentInChildren<GunInventory>();
 
         // if camera is under Armature:Hips:Spine:Neck:Head
         //GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
@@ -232,10 +237,39 @@ public class PlayerMovementScript : MonoBehaviour {
 	void OnCollisionExit ()
 	{
 		grounded = false;
-	}
+    }
 
+    void OnTriggerEnter(Collider other)
+    {
+        //Check the provided Collider parameter other to see if it is tagged "Shop", if it is...
+        if (other.gameObject.CompareTag("Shop"))
+        {
+            //... then set the other object we just collided with to inactive.
+            other.gameObject.SetActive(false);
 
-	RaycastHit hitInfo;
+            int maxBullets = 180;
+
+            primaryGunScript = gunInventory.primaryGun.GetComponent<GunScript>();
+            if (primaryGunScript.bulletsIHave < maxBullets)
+            {
+                primaryGunScript.bulletsIHave = maxBullets;
+            }
+
+            secondaryGunScript = gunInventory.secondaryGun.GetComponent<GunScript>();
+            if (secondaryGunScript.bulletsIHave < maxBullets)
+            {
+                secondaryGunScript.bulletsIHave = maxBullets;
+            }
+        }
+
+        //Add one to the current value of our count variable.
+        //count = count + 1;
+
+        //Update the currently displayed count by calling the SetCountText function.
+        //SetCountText();
+    }
+
+    RaycastHit hitInfo;
 	private float meleeAttack_cooldown;
 	private string currentWeapo;
 	[Tooltip("Put 'Player' layer here")]

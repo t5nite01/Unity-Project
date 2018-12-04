@@ -11,8 +11,8 @@ public class GunInventory : MonoBehaviour {
 	public GameObject currentGun;
 	private Animator currentHAndsAnimator;
 	private int currentGunCounter = 0;
-  private GameObject primaryGun;
-  private GameObject secondaryGun;
+    public GameObject primaryGun;
+    public GameObject secondaryGun;
 
 	[Tooltip("Put Strings of weapon objects from Resources Folder.")]
 	public List<string> gunsIHave = new List<string>();

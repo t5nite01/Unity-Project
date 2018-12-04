@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - BulletSpawn
+  - SecondCamera
+  - Shop
   layers:
   - Default
   - TransparentFX
