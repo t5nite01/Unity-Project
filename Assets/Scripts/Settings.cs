@@ -10,9 +10,11 @@ public class Settings : MonoBehaviour
   public Dropdown resolutionDropdown;
   private Resolution[] resolutions;
 
+  public AudioController audioController;
   // Use this for initialization
   void Start()
   {
+    
     resolutions = Screen.resolutions;
     resolutionDropdown.ClearOptions();
 
@@ -42,7 +44,7 @@ public class Settings : MonoBehaviour
 
   public void SetVolume(float volume)
   {
-    audioMixer.SetFloat("MainVolume", volume);
+    audioController.SetMusixLevel(volume);
   }
 
   public void SetQuality(int qualityIndex)

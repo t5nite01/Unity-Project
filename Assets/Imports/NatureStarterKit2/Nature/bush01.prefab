@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - component: {fileID: 472700}
   - component: {fileID: 19392816}
-  - component: {fileID: 2398136}
   - component: {fileID: 3302098}
+  - component: {fileID: 2398136}
   m_Layer: 0
   m_Name: bush01
   m_TagString: Untagged
@@ -107,7 +107,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Cutoff: 0.3
     - _SquashAmount: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -152,7 +151,7 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!33 &3302098
 MeshFilter:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108544}

@@ -5,7 +5,7 @@ public class EnemyManager : MonoBehaviour
   public PlayerHealth playerHealth;  // Reference to the player's heatlh.
   public GameObject player;               // ref to player position.
   private static float difficultyScaler = 1;
-  public float spawnTime = 7f;            // How long between each spawn.
+  public float spawnTime = 5f;            // How long between each spawn.
   public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
   private float runtime;
 
@@ -23,8 +23,13 @@ public class EnemyManager : MonoBehaviour
 
     // Increase difficulty scaler overtime
     if(runtime > 10){
-      difficultyScaler += 0.1f;
-      spawnTime -= 0.1f;
+      difficultyScaler += 0.03f;
+      if (spawnTime > 2)
+      {
+        spawnTime -= 0.1f;   
+        CancelInvoke("Spawn");
+        InvokeRepeating("Spawn", spawnTime, spawnTime);
+      }
       runtime = 0;
     }
   } 

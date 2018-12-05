@@ -2317,10 +2317,11 @@ AudioSource:
   m_GameObject: {fileID: 147646}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b9992d5fd3b988342a96c475182a0e48,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: d85099fefd84d429788e09001413207b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.71
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2412,7 +2413,8 @@ AudioSource:
   m_GameObject: {fileID: 152016}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b9992d5fd3b988342a96c475182a0e48,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 736a6ee94d8a94aef925851d18125a0c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -2507,10 +2509,11 @@ AudioSource:
   m_GameObject: {fileID: 155258}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b9992d5fd3b988342a96c475182a0e48,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 68f790dbfa1f84670a70b81bd91a98e1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.701
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2625,8 +2628,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStyle: 1
   mls: {fileID: 0}
-  walkingSpeed: 4
-  runningSpeed: 6
+  walkingSpeed: 3
+  runningSpeed: 5
   bulletsIHave: 180
   bulletsInTheGun: 30
   amountOfBulletsPerLoad: 30

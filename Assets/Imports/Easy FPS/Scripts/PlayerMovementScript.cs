@@ -36,6 +36,13 @@ public class PlayerMovementScript : MonoBehaviour {
 		bulletSpawn = cameraMain.Find("BulletSpawn").transform;
 		ignoreLayer = 1 << LayerMask.NameToLayer ("Player");
 
+    float volume = PlayerPrefs.GetFloat("MainVolume");
+    volume = (volume+80)/80;  
+    _jumpSound.volume = volume;
+    _freakingZombiesSound.volume = volume;
+    _hitSound.volume = volume;
+    _runSound.volume = volume;
+    _walkSound.volume = volume;
 	}
 	private Vector3 slowdownV;
 	private Vector2 horizontalMovement;
@@ -43,6 +50,7 @@ public class PlayerMovementScript : MonoBehaviour {
 	* Raycasting for meele attacks and input movement handling here.
 	*/
 	void FixedUpdate(){
+    
 		RaycastForMeleeAttacks ();
 
 		PlayerMovementLogic ();
@@ -70,14 +78,13 @@ public class PlayerMovementScript : MonoBehaviour {
 				deaccelerationSpeed);
 		}
 
-        float groundclamp = -3000;
-
-        if (grounded) {
-			rb.AddRelativeForce (Input.GetAxis("Horizontal") * accelerationSpeed * Time.deltaTime, groundclamp, Input.GetAxis("Vertical") * accelerationSpeed * Time.deltaTime);
+		if (grounded) {
+			rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed * Time.deltaTime);
 		} else {
-			rb.AddRelativeForce (Input.GetAxis("Horizontal") * accelerationSpeed / 2 * Time.deltaTime, 0, Input.GetAxis("Vertical") * accelerationSpeed / 2 * Time.deltaTime);
+			rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed / 2 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed / 2 * Time.deltaTime);
 
 		}
+
 		/*
 		 * Slippery issues fixed here
 		 */
@@ -105,15 +112,12 @@ public class PlayerMovementScript : MonoBehaviour {
 	* Update loop calling other stuff
 	*/
 	void Update(){
-
 		Jumping ();
-
+    
 		Crouching();
-        PreventStandingInLowHeadroom();
+    PreventStandingInLowHeadroom();
 
-        WalkingSound ();
-
-
+    WalkingSound ();
     }//end update
 
     /*

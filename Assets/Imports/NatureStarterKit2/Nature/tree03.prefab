@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - component: {fileID: 451222}
   - component: {fileID: 19343728}
+  - component: {fileID: 3350282}
   - component: {fileID: 2323548}
   - component: {fileID: 13699876}
-  - component: {fileID: 3350282}
   m_Layer: 0
   m_Name: tree03
   m_TagString: Untagged
@@ -63,7 +63,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Cutoff: 0.3
     - _SquashAmount: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -153,7 +152,7 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!33 &3350282
 MeshFilter:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191138}

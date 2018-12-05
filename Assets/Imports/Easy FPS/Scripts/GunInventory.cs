@@ -44,6 +44,9 @@ public class GunInventory : MonoBehaviour {
     StartCoroutine ("SpawnWeaponUponStart");//to start with a gun
 		if (gunsIHave.Count == 0)
 			print ("No guns in the inventory");
+    float volume = PlayerPrefs.GetFloat("MainVolume");
+    volume = (volume+80)/80; 
+    weaponChanging.volume = volume;
   }
 
 	/*

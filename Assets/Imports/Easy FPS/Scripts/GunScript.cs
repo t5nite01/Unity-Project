@@ -48,6 +48,8 @@ public class GunScript : MonoBehaviour {
 		bulletSpawnPlace = GameObject.FindGameObjectWithTag("BulletSpawn");
 		hitMarker = transform.Find ("hitMarkerSound").GetComponent<AudioSource> ();
 
+    
+
 		startLook = mouseSensitvity_notAiming;
 		startAim = mouseSensitvity_aiming;
 		startRun = mouseSensitvity_running;
@@ -55,8 +57,13 @@ public class GunScript : MonoBehaviour {
 		rotationLastY = mls.currentYRotation;
 		rotationLastX= mls.currentCameraXRotation;
 
+    float volume = PlayerPrefs.GetFloat("MainVolume");
+    volume = (volume+80)/80;
+    Debug.Log(volume);
+    shoot_sound_source.volume = volume;
+    reloadSound_source.volume = volume; 
+    hitMarker.volume = volume;
 	}
-
 
 	[HideInInspector]
 	public Vector3 currentGunPosition;
@@ -431,7 +438,7 @@ public class GunScript : MonoBehaviour {
 				holdFlash = Instantiate(muzzelFlash[randomNumberForMuzzelFlash], muzzelSpawn.transform.position /*- muzzelPosition*/, muzzelSpawn.transform.rotation * Quaternion.Euler(0,0,90) ) as GameObject;
 				holdFlash.transform.parent = muzzelSpawn.transform;
 				if (shoot_sound_source)
-					shoot_sound_source.Play ();
+					shoot_sound_source.Play();
 				else
 					print ("Missing 'Shoot Sound Source'.");
 
@@ -586,7 +593,7 @@ public class GunScript : MonoBehaviour {
 			handsAnimator.SetFloat("walkSpeed",pmS.currentSpeed);
 			handsAnimator.SetBool("aiming", Input.GetButton("Fire2"));
 			handsAnimator.SetInteger("maxSpeed", pmS.maxSpeed);
-			if(Input.GetKeyDown(KeyCode.R) && pmS.maxSpeed < 5 && !reloading && !meeleAttack/* && !aiming*/){
+			if(Input.GetKeyDown(KeyCode.R) &&  !reloading && !meeleAttack/*&& pmS.maxSpeed < 5  && !aiming*/){
 				StartCoroutine("Reload_Animation");
 			}
 		}
