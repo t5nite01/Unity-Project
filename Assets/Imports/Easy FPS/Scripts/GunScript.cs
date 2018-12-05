@@ -538,7 +538,10 @@ public class GunScript : MonoBehaviour {
 		if(mls && HUD_bullets)
 			HUD_bullets.text = bulletsIHave.ToString() + " - " + bulletsInTheGun.ToString();
 
-		DrawCrosshair();
+        if (Time.timeScale != 0)    // if game is not paused
+        {
+            DrawCrosshair();
+        }
 	}
 
 	[Header("Crosshair properties")]

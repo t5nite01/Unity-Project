@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementScript : MonoBehaviour {
 	Rigidbody rb;
@@ -18,7 +20,11 @@ public class PlayerMovementScript : MonoBehaviour {
     CapsuleCollider m_Capsule;
     bool m_Crouching;
 
+    private Text shopClosedText;
+    private BoxCollider shopCollider;
     private GameObject shopPanel;
+    public GameObject shopInfoText;
+
     [HideInInspector] public bool shopping;
 
     /*
@@ -39,9 +45,20 @@ public class PlayerMovementScript : MonoBehaviour {
 		bulletSpawn = cameraMain.Find("BulletSpawn").transform;
 		ignoreLayer = 1 << LayerMask.NameToLayer ("Player");
 
+        shopClosedText = GameObject.Find("ShopClosedText").GetComponent<Text>();
+        if (shopClosedText != null)
+        {
+            shopClosedText.enabled = false;
+        }
+        shopCollider = GameObject.FindGameObjectWithTag("Shop").GetComponent<BoxCollider>();
         shopPanel = GameObject.Find("ShopPanel");
-        shopPanel.SetActive(false);
-        shopping = false;
+        if(shopPanel != null)
+        {
+            shopInfoText = GameObject.Find("ShopInfoText");
+            shopInfoText.SetActive(false);
+            shopPanel.SetActive(false);
+            shopping = false;
+        }
 
     }
 	private Vector3 slowdownV;
@@ -116,6 +133,8 @@ public class PlayerMovementScript : MonoBehaviour {
         if (!shopping && shopPanel.activeSelf)
         {
             shopPanel.SetActive(false);
+            shopClosedText.enabled = true;
+            StartCoroutine(OpenShopAgain(5f));
         }
 
         Jumping ();
@@ -252,11 +271,25 @@ public class PlayerMovementScript : MonoBehaviour {
         if (other.gameObject.CompareTag("Shop"))
         {
             //... then set the other object we just collided with to inactive.
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
+            shopCollider.enabled = false;
 
             shopping = true;
             shopPanel.SetActive(true);
         }
+    }
+    
+    IEnumerator OpenShopAgain(float timeLeft)
+    {
+        for (timeLeft = 10; timeLeft > 0; timeLeft -= Time.deltaTime)
+        {
+            string shopClosed = "Shop closed for " + Mathf.RoundToInt(timeLeft) + " seconds";
+            shopClosedText.text = shopClosed;
+
+            yield return null;
+        }
+        shopCollider.enabled = true;
+        shopClosedText.enabled = false;
     }
 
     RaycastHit hitInfo;

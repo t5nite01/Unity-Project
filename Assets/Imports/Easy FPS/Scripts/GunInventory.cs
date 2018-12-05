@@ -204,13 +204,16 @@ public class GunInventory : MonoBehaviour {
 	 * From here I am listing thourhg guns I have and drawing corresponding images on the sceen.
 	 */
 	void OnGUI(){
-
-		if(currentGun){
-			for(int i = 0; i < gunsIHave.Count; i++){
-				DrawCorrespondingImage(i);
-			}
-		}
-
+        if (Time.timeScale != 0)    // if game is not paused
+        {
+            if (currentGun)
+            {
+                for (int i = 0; i < gunsIHave.Count; i++)
+                {
+                    DrawCorrespondingImage(i);
+                }
+            }
+        }
 	}
 
 	[Header("GUI Gun preview variables")]

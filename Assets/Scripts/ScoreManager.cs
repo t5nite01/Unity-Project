@@ -51,6 +51,10 @@ public class ScoreManager : MonoBehaviour
     kills += 1;
   }
 
+  public void setScore(int amount){
+    score = amount;
+  }
+
   public float getScore(){
     return score;
   }
