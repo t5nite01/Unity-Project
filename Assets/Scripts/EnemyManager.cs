@@ -77,7 +77,7 @@ public class EnemyManager : MonoBehaviour
 
     newObject.GetComponent<EnemyHealth>().setHealthByScale(difficultyScaler);
     newObject.GetComponent<EnemyAttack>().setAttackDamageByScale(difficultyScaler);
-    newObject.GetComponent<ZombieController>().setDifficultyScale(difficultyScaler);
+    newObject.GetComponent<ZombieController>().SetDifficultyScale(difficultyScaler);
     newObject.transform.position = spawnPoints[spawnPointIndex].position;
     newObject.transform.rotation = spawnPoints[spawnPointIndex].rotation;
   }

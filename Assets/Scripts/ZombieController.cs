@@ -7,7 +7,7 @@ public class ZombieController : MonoBehaviour
 {
   private bool close;
   private float difficultyScaler;
-  GameObject zombie;
+
   Animator zombieAnimator;
   Animation zombieAnimation;
   Transform player;               // Reference to the player's position.
@@ -32,14 +32,14 @@ public class ZombieController : MonoBehaviour
     zombieAnimator = GetComponentInChildren<Animator>();
     // Reset 
     difficultyScaler = 1;
-  }
+    }
 
   void OnAnimatorMove()
   {
         if (Time.timeScale != 0)    // if game is not paused
         {
             zombieAnimator.speed = 1 * difficultyScaler;
-            nav.velocity = zombieAnimator.deltaPosition / Time.deltaTime * difficultyScaler;
+            nav.velocity = zombieAnimator.deltaPosition / Time.unscaledDeltaTime * difficultyScaler;
         }
   }
 
@@ -88,13 +88,14 @@ public class ZombieController : MonoBehaviour
         }
     }
 
-  public void kill(){
+  public void Kill(){
     zombieAnimator.ResetTrigger("Attacking");
     zombieAnimator.ResetTrigger("Moving");
     zombieAnimator.SetTrigger("Dead");
     this.enabled = false;
   }
-  public void setDifficultyScale(float scale){
+
+  public void SetDifficultyScale(float scale){
     difficultyScaler = scale;
   }
 }

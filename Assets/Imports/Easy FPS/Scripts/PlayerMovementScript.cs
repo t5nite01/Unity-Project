@@ -134,7 +134,7 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             shopPanel.SetActive(false);
             shopClosedText.enabled = true;
-            StartCoroutine(OpenShopAgain(5f));
+            StartCoroutine(OpenShopAgain());
         }
 
         Jumping ();
@@ -279,9 +279,9 @@ public class PlayerMovementScript : MonoBehaviour {
         }
     }
     
-    IEnumerator OpenShopAgain(float timeLeft)
+    IEnumerator OpenShopAgain()
     {
-        for (timeLeft = 10; timeLeft > 0; timeLeft -= Time.deltaTime)
+        for (float timeLeft = 10f; timeLeft > 0f; timeLeft -= Time.deltaTime)
         {
             string shopClosed = "Shop closed for " + Mathf.RoundToInt(timeLeft) + " seconds";
             shopClosedText.text = shopClosed;
