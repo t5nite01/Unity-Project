@@ -11,8 +11,8 @@ public class GunInventory : MonoBehaviour {
 	public GameObject currentGun;
 	private Animator currentHAndsAnimator;
 	private int currentGunCounter = 0;
-  private GameObject primaryGun;
-  private GameObject secondaryGun;
+    public GameObject primaryGun;
+    public GameObject secondaryGun;
 
 	[Tooltip("Put Strings of weapon objects from Resources Folder.")]
 	public List<string> gunsIHave = new List<string>();
@@ -207,13 +207,16 @@ public class GunInventory : MonoBehaviour {
 	 * From here I am listing thourhg guns I have and drawing corresponding images on the sceen.
 	 */
 	void OnGUI(){
-
-		if(currentGun){
-			for(int i = 0; i < gunsIHave.Count; i++){
-				DrawCorrespondingImage(i);
-			}
-		}
-
+        if (Time.timeScale != 0)    // if game is not paused
+        {
+            if (currentGun)
+            {
+                for (int i = 0; i < gunsIHave.Count; i++)
+                {
+                    DrawCorrespondingImage(i);
+                }
+            }
+        }
 	}
 
 	[Header("GUI Gun preview variables")]

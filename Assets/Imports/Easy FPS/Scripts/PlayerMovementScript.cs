@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementScript : MonoBehaviour {
 	Rigidbody rb;
@@ -17,6 +19,13 @@ public class PlayerMovementScript : MonoBehaviour {
     float m_CapsuleHeight;
     CapsuleCollider m_Capsule;
     bool m_Crouching;
+
+    private Text shopClosedText;
+    private BoxCollider shopCollider;
+    private GameObject shopPanel;
+    public GameObject shopInfoText;
+
+    [HideInInspector] public bool shopping;
 
     /*
 	 * Getting the Players rigidbody component.
@@ -44,6 +53,22 @@ public class PlayerMovementScript : MonoBehaviour {
     _runSound.volume = volume;
     _walkSound.volume = volume;
 	}
+        shopClosedText = GameObject.Find("ShopClosedText").GetComponent<Text>();
+        if (shopClosedText != null)
+        {
+            shopClosedText.enabled = false;
+        }
+        shopCollider = GameObject.FindGameObjectWithTag("Shop").GetComponent<BoxCollider>();
+        shopPanel = GameObject.Find("ShopPanel");
+        if(shopPanel != null)
+        {
+            shopInfoText = GameObject.Find("ShopInfoText");
+            shopInfoText.SetActive(false);
+            shopPanel.SetActive(false);
+            shopping = false;
+        }
+
+    }
 	private Vector3 slowdownV;
 	private Vector2 horizontalMovement;
 	/*
@@ -111,9 +136,17 @@ public class PlayerMovementScript : MonoBehaviour {
 	/*
 	* Update loop calling other stuff
 	*/
-	void Update(){
-		Jumping ();
-    
+	void Update()
+    {
+        if (!shopping && shopPanel.activeSelf)
+        {
+            shopPanel.SetActive(false);
+            shopClosedText.enabled = true;
+            StartCoroutine(OpenShopAgain(5f));
+        }
+
+        Jumping ();
+
 		Crouching();
     PreventStandingInLowHeadroom();
 
@@ -236,10 +269,36 @@ public class PlayerMovementScript : MonoBehaviour {
 	void OnCollisionExit ()
 	{
 		grounded = false;
-	}
+    }
 
+    void OnTriggerEnter(Collider other)
+    {
+        //Check the provided Collider parameter other to see if it is tagged "Shop", if it is...
+        if (other.gameObject.CompareTag("Shop"))
+        {
+            //... then set the other object we just collided with to inactive.
+            //other.gameObject.SetActive(false);
+            shopCollider.enabled = false;
 
-	RaycastHit hitInfo;
+            shopping = true;
+            shopPanel.SetActive(true);
+        }
+    }
+    
+    IEnumerator OpenShopAgain(float timeLeft)
+    {
+        for (timeLeft = 10; timeLeft > 0; timeLeft -= Time.deltaTime)
+        {
+            string shopClosed = "Shop closed for " + Mathf.RoundToInt(timeLeft) + " seconds";
+            shopClosedText.text = shopClosed;
+
+            yield return null;
+        }
+        shopCollider.enabled = true;
+        shopClosedText.enabled = false;
+    }
+
+    RaycastHit hitInfo;
 	private float meleeAttack_cooldown;
 	private string currentWeapo;
 	[Tooltip("Put 'Player' layer here")]

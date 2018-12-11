@@ -492,20 +492,9 @@ public class GunScript : MonoBehaviour {
 					player.GetComponent<PlayerMovementScript> ()._freakingZombiesSound.Play ();
 				else
 					print ("Missing Freaking Zombies Sound");
-				
-				if (bulletsIHave - amountOfBulletsPerLoad >= 0) {
-					bulletsIHave -= amountOfBulletsPerLoad - bulletsInTheGun;
-					bulletsInTheGun = amountOfBulletsPerLoad;
-				} else if (bulletsIHave - amountOfBulletsPerLoad < 0) {
-					float valueForBoth = amountOfBulletsPerLoad - bulletsInTheGun;
-					if (bulletsIHave - valueForBoth < 0) {
-						bulletsInTheGun += bulletsIHave;
-						bulletsIHave = 0;
-					} else {
-						bulletsIHave -= valueForBoth;
-						bulletsInTheGun += valueForBoth;
-					}
-				}
+
+                ReloadMethod();
+
 			} else {
 				reloadSound_source.Stop ();
 
@@ -514,6 +503,29 @@ public class GunScript : MonoBehaviour {
 
 		}
 	}
+
+    public void ReloadMethod()
+    {
+        if (bulletsIHave - amountOfBulletsPerLoad >= 0)
+        {
+            bulletsIHave -= amountOfBulletsPerLoad - bulletsInTheGun;
+            bulletsInTheGun = amountOfBulletsPerLoad;
+        }
+        else if (bulletsIHave - amountOfBulletsPerLoad < 0)
+        {
+            float valueForBoth = amountOfBulletsPerLoad - bulletsInTheGun;
+            if (bulletsIHave - valueForBoth < 0)
+            {
+                bulletsInTheGun += bulletsIHave;
+                bulletsIHave = 0;
+            }
+            else
+            {
+                bulletsIHave -= valueForBoth;
+                bulletsInTheGun += valueForBoth;
+            }
+        }
+    }
 
 	/*
 	 * Setting the number of bullets to the hud UI gameobject if there is one.
@@ -533,7 +545,10 @@ public class GunScript : MonoBehaviour {
 		if(mls && HUD_bullets)
 			HUD_bullets.text = bulletsIHave.ToString() + " - " + bulletsInTheGun.ToString();
 
-		DrawCrosshair();
+        if (Time.timeScale != 0)    // if game is not paused
+        {
+            DrawCrosshair();
+        }
 	}
 
 	[Header("Crosshair properties")]

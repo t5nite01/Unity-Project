@@ -51,6 +51,10 @@ public class ScoreManager : MonoBehaviour
     kills += 1;
   }
 
+  public void setScore(int amount){
+    score = amount;
+  }
+
   public float getScore(){
     return score;
   }
@@ -58,7 +62,12 @@ public class ScoreManager : MonoBehaviour
   public int getKills(){
     return kills;
   }
+
   public void stop(){
     running = false;
+  }
+
+  public void resume(){
+    running = true;
   }
 }
