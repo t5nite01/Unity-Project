@@ -122,6 +122,14 @@ public class PlayerHealth : MonoBehaviour
         //playerAudio.Play ();
     }
 
+    private void MoveCamera()
+    {
+        Vector3 deathPosition = cameraMain.position;
+        Vector3 targetPosition = new Vector3(deathPosition.x, deathPosition.y + 5f, deathPosition.z);
+        deathCamera = DeathCamera(0, deathPosition, targetPosition);
+        StartCoroutine(deathCamera);
+    }
+
     private Vector3 cameraVelocity = Vector3.zero;
     public IEnumerator DeathCamera(float timeCount, Vector3 deathPosition, Vector3 targetPosition)
     {
@@ -136,14 +144,6 @@ public class PlayerHealth : MonoBehaviour
             timeCount = timeCount + Time.deltaTime * 0.03f;
             yield return 0;
         }
-    }
-
-    private void MoveCamera()
-    {
-        Vector3 deathPosition = cameraMain.position;
-        Vector3 targetPosition = new Vector3(deathPosition.x, deathPosition.y + 5f, deathPosition.z);
-        deathCamera = DeathCamera(0, deathPosition, targetPosition);
-        StartCoroutine(deathCamera);
     }
 
     private void GetScoreAndKills()
