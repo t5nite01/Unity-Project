@@ -96,31 +96,23 @@ public class PlayerHealth : MonoBehaviour
         // Set the death flag so this function won't be called again.
         isDead = true;
 
-        // Show the player body
-        skinnedMeshRenderer.enabled = true;
+        skinnedMeshRenderer.enabled = true;         // Show the player body
 
-        // Tell the animator that the player is dead.
-        anim.SetTrigger("Dead");
+        anim.SetTrigger("Dead");                    // Tell the animator that the player is dead.
 
-        // Move the camera up and rotate to look down
-        Vector3 deathPosition = cameraMain.position;
-        Vector3 targetPosition = new Vector3(deathPosition.x, deathPosition.y + 5f, deathPosition.z);
-        deathCamera = DeathCamera(0, deathPosition, targetPosition);
-        StartCoroutine(deathCamera);
+        MoveCamera();                               // Move the camera up and rotate to look down
 
-        gameOverPanel.SetActive(true);
-        // Get score and kills to score screen.
-        Text gameOverScoreText = GameObject.Find("GameOverScoreText").GetComponent<Text>();
-        Text gameOverKillsText = GameObject.Find("GameOverKillsText").GetComponent<Text>();
-        gameOverScoreText.text = "Score: " + Mathf.RoundToInt(GetComponent<ScoreManager>().getScore()).ToString();
-        gameOverKillsText.text = "Kills: " + GetComponent<ScoreManager>().getKills().ToString();
-        // Stop score script
-        GetComponent<ScoreManager>().stop();
-        // Disable unwanted player input
-        playerMovement.enabled = false;
-        mouseLook.enabled = false;
-        gunInventory.DeadMethod();
-        Cursor.lockState = CursorLockMode.None;
+        gameOverPanel.SetActive(true);              // Show the game over panel
+
+        GetScoreAndKills();                         // Get score and kills to score screen.
+
+        GetComponent<ScoreManager>().stop();        // Stop score script
+
+        PreventShopping();                          // Prevent shopping if died inside the shop building
+
+        DisablePlayerInputs();                      // Disable unwanted player input
+
+        Cursor.lockState = CursorLockMode.None;     // Show the cursor
 
         // Turn off any remaining shooting effects.
         //playerShooting.DisableEffects();
@@ -130,7 +122,6 @@ public class PlayerHealth : MonoBehaviour
         //playerAudio.Play ();
     }
 
-
     private Vector3 cameraVelocity = Vector3.zero;
     public IEnumerator DeathCamera(float timeCount, Vector3 deathPosition, Vector3 targetPosition)
     {
@@ -138,12 +129,42 @@ public class PlayerHealth : MonoBehaviour
         {
             cameraMain.localRotation = Quaternion.Slerp(cameraMain.localRotation, Quaternion.Euler(90, 0, 180), timeCount);
             cameraMain.position = Vector3.SmoothDamp(cameraMain.position, targetPosition, ref cameraVelocity, 2f);
-            if(targetPosition.y - cameraMain.position.y <= 1f)
+            if (targetPosition.y - cameraMain.position.y <= 1f)
             {
                 StopCoroutine(deathCamera);
             }
             timeCount = timeCount + Time.deltaTime * 0.03f;
             yield return 0;
         }
+    }
+
+    private void MoveCamera()
+    {
+        Vector3 deathPosition = cameraMain.position;
+        Vector3 targetPosition = new Vector3(deathPosition.x, deathPosition.y + 5f, deathPosition.z);
+        deathCamera = DeathCamera(0, deathPosition, targetPosition);
+        StartCoroutine(deathCamera);
+    }
+
+    private void GetScoreAndKills()
+    {
+        Text gameOverScoreText = GameObject.Find("GameOverScoreText").GetComponent<Text>();
+        Text gameOverKillsText = GameObject.Find("GameOverKillsText").GetComponent<Text>();
+        gameOverScoreText.text = "Score: " + Mathf.RoundToInt(GetComponent<ScoreManager>().getScore()).ToString();
+        gameOverKillsText.text = "Kills: " + GetComponent<ScoreManager>().getKills().ToString();
+    }
+
+    private static void PreventShopping()
+    {
+        GameObject.FindGameObjectWithTag("Shop").SetActive(false);
+        GameObject.FindGameObjectWithTag("Closed Shop").SetActive(false);
+        GameObject.Find("ShopClosedText").GetComponent<Text>().enabled = false;
+    }
+
+    private void DisablePlayerInputs()
+    {
+        playerMovement.enabled = false;
+        mouseLook.enabled = false;
+        gunInventory.DeadMethod();
     }
 }
