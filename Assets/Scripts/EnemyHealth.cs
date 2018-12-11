@@ -87,7 +87,7 @@ public class EnemyHealth : MonoBehaviour
   void Death()
   {
     isDead = true;
-    zombieController.kill();
+    zombieController.Kill();
     // Turn the collider into a trigger so shots can pass through it.
     capsuleCollider.isTrigger = true;
     rigidbody.useGravity = false;

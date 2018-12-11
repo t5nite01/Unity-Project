@@ -8,6 +8,7 @@ TagManager:
   - BulletSpawn
   - SecondCamera
   - Shop
+  - Closed Shop
   layers:
   - Default
   - TransparentFX

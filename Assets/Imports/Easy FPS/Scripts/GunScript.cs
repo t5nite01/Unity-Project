@@ -87,23 +87,24 @@ public class GunScript : MonoBehaviour {
 	/*
 	Update loop calling for methods that are descriped below where they are initiated.
 	*/
-	void Update(){
+	void Update()
+    {
+        if (Time.timeScale != 0)    // if game is not paused
+        {
+            Animations();
 
-		Animations();
+            GiveCameraScriptMySensitvity();
 
-		GiveCameraScriptMySensitvity();
+            PositionGun();
 
-		PositionGun();
+            Shooting();
+            MeeleAttack();
+            LockCameraWhileMelee();
 
-		Shooting();
-		MeeleAttack();
-		LockCameraWhileMelee ();
+            Sprint(); //iff we have the gun you sprint from here, if we are gunless then its called from movement script
 
-		Sprint(); //iff we have the gun you sprint from here, if we are gunless then its called from movement script
-
-		CrossHairExpansionWhenWalking();
-
-
+            CrossHairExpansionWhenWalking();
+        }
 	}
 
 	/*

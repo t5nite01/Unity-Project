@@ -139,12 +139,12 @@ public class PlayerMovementScript : MonoBehaviour {
   */
   void Update()
     {
-    if (!shopping && shopPanel.activeSelf)
-    {
-        shopPanel.SetActive(false);
-        shopClosedText.enabled = true;
-        StartCoroutine(OpenShopAgain(5f));
-    }
+        if (!shopping && shopPanel.activeSelf)
+        {
+            shopPanel.SetActive(false);
+            shopClosedText.enabled = true;
+            StartCoroutine(OpenShopAgain());
+        }
 
     Jumping ();
 
@@ -284,11 +284,23 @@ public class PlayerMovementScript : MonoBehaviour {
             shopping = true;
             shopPanel.SetActive(true);
         }
+        else if (other.gameObject.CompareTag("Closed Shop") && shopCollider.enabled == false && !shopPanel.activeSelf) //Show text only if inside the building and shop is closed
+        {
+            shopClosedText.enabled = true;
+        }
     }
-    
-    IEnumerator OpenShopAgain(float timeLeft)
+
+    void OnTriggerExit(Collider other)
     {
-        for (timeLeft = 10; timeLeft > 0; timeLeft -= Time.deltaTime)
+        if (other.gameObject.CompareTag("Closed Shop"))
+        {
+            shopClosedText.enabled = false;
+        }
+    }
+
+    IEnumerator OpenShopAgain()
+    {
+        for (float timeLeft = 10f; timeLeft > 0f; timeLeft -= Time.deltaTime)
         {
             string shopClosed = "Shop closed for " + Mathf.RoundToInt(timeLeft) + " seconds";
             shopClosedText.text = shopClosed;
