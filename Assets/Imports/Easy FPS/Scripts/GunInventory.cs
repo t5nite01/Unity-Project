@@ -46,7 +46,7 @@ public class GunInventory : MonoBehaviour {
 			print ("No guns in the inventory");
     float volume = PlayerPrefs.GetFloat("MainVolume");
     volume = (volume+80)/80; 
-    weaponChanging.volume = volume;
+    weaponChanging.volume = volume*0.5f;
   }
 
 	/*

@@ -60,8 +60,8 @@ public class GunScript : MonoBehaviour {
     float volume = PlayerPrefs.GetFloat("MainVolume");
     volume = (volume+80)/80;
     Debug.Log(volume);
-    shoot_sound_source.volume = volume;
-    reloadSound_source.volume = volume; 
+    shoot_sound_source.volume = volume*0.7f;
+    reloadSound_source.volume = volume*0.3f; 
     hitMarker.volume = volume;
 	}
 
@@ -231,13 +231,26 @@ public class GunScript : MonoBehaviour {
 	/*
 	* Sets meele animation to play.
 	*/
+  RaycastHit hit;
+  public LayerMask ignoreLayer;
+  public GameObject bloodEffect;
 	IEnumerator AnimationMeeleAttack(){
 		handsAnimator.SetBool("meeleAttack",true);
-    // melee damage implementation here.
+
+    if(Physics.Raycast(transform.position, transform.forward,out hit, 1.6f, ~ignoreLayer)){
+      if(hit.transform.tag == "Enemy"){
+        Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+        if (enemyHealth != null){
+            enemyHealth.TakeDamage(50, hit.point);
+        }
+      }
 		//yield return new WaitForEndOfFrame();
-		yield return new WaitForSeconds(0.1f);
-		handsAnimator.SetBool("meeleAttack",false);
-	}
+		
+	  }
+    yield return new WaitForSeconds(0.4f);
+    handsAnimator.SetBool("meeleAttack",false);
+  }
 
 	private float startLook, startAim, startRun;
 	/*
