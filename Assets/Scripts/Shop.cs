@@ -221,50 +221,74 @@ public class Shop : MonoBehaviour
         if (primaryGunScript.bulletsInTheGun == 30)
         {
             primaryReloadButton.interactable = false;
+            ChangeImageMaterial(primaryReloadButton);
         }
         else
         {
             primaryReloadButton.interactable = true;
+            ChangeImageMaterial(primaryReloadButton);
         }
         if (secondaryGunScript.bulletsInTheGun == 30)
         {
             secondaryReloadButton.interactable = false;
+            ChangeImageMaterial(secondaryReloadButton);
         }
         else
         {
             secondaryReloadButton.interactable = true;
+            ChangeImageMaterial(secondaryReloadButton);
         }
         if (score < primaryFullAmmoPrice || primaryFullAmmoPrice == 0)
         {
             primaryFullAmmoButton.interactable = false;
+            ChangeImageMaterial(primaryFullAmmoButton);
         }
         else
         {
             primaryFullAmmoButton.interactable = true;
+            ChangeImageMaterial(primaryFullAmmoButton);
         }
         if (score < primaryMoreAmmoPrice || primaryMoreAmmoPrice == 0)
         {
             primaryMoreAmmoButton.interactable = false;
+            ChangeImageMaterial(primaryMoreAmmoButton);
         }
         else
         {
             primaryMoreAmmoButton.interactable = true;
+            ChangeImageMaterial(primaryMoreAmmoButton);
         }
         if (score < secondaryFullAmmoPrice || secondaryFullAmmoPrice == 0)
         {
             secondaryFullAmmoButton.interactable = false;
+            ChangeImageMaterial(secondaryFullAmmoButton);
         }
         else
         {
             secondaryFullAmmoButton.interactable = true;
+            ChangeImageMaterial(secondaryFullAmmoButton);
         }
         if (score < secondaryMoreAmmoPrice || secondaryMoreAmmoPrice == 0)
         {
             secondaryMoreAmmoButton.interactable = false;
+            ChangeImageMaterial(secondaryMoreAmmoButton);
         }
         else
         {
             secondaryMoreAmmoButton.interactable = true;
+            ChangeImageMaterial(secondaryMoreAmmoButton);
+        }
+    }
+
+    void ChangeImageMaterial(Button button)
+    {
+        if (button.interactable == false)
+        {
+            button.image.material = Resources.Load("Materials/ButtonDisabledMat", typeof(Material)) as Material;
+        }
+        else
+        {
+            button.image.material = Resources.Load("Materials/ButtonMat", typeof(Material)) as Material;
         }
     }
 }
