@@ -18,13 +18,11 @@ public class AudioController : MonoBehaviour
   {
       mixer.SetFloat("MainVolume", value);
       PlayerPrefs.SetFloat("MainVolume", value);
-      Debug.Log(PlayerPrefs.GetFloat("MainVolume"));
       PlayerPrefs.Save();
   }
 
   private void LoadPref()
   {
-    Debug.Log("loaded " + PlayerPrefs.GetFloat("MainVolume"));
     if(SceneManager.GetActiveScene().name == "StartScreen"){
       volSlider.value = PlayerPrefs.GetFloat("MainVolume");  
     }

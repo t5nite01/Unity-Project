@@ -48,8 +48,6 @@ public class GunScript : MonoBehaviour {
 		bulletSpawnPlace = GameObject.FindGameObjectWithTag("BulletSpawn");
 		hitMarker = transform.Find ("hitMarkerSound").GetComponent<AudioSource> ();
 
-    
-
 		startLook = mouseSensitvity_notAiming;
 		startAim = mouseSensitvity_aiming;
 		startRun = mouseSensitvity_running;
@@ -59,7 +57,6 @@ public class GunScript : MonoBehaviour {
 
     float volume = PlayerPrefs.GetFloat("MainVolume");
     volume = (volume+80)/80;
-    Debug.Log(volume);
     shoot_sound_source.volume = volume*0.7f;
     reloadSound_source.volume = volume*0.3f; 
     hitMarker.volume = volume;

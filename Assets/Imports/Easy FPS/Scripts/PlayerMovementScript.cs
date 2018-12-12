@@ -9,6 +9,8 @@ public class PlayerMovementScript : MonoBehaviour {
 
   [Tooltip("Current players speed")]
   public float currentSpeed;
+  public Vector3 currentSpeedVector;
+
   [Tooltip("Assign players camera here")]
   [HideInInspector]public Transform cameraMain;
   [Tooltip("Force that moves player into jump")]
@@ -86,24 +88,27 @@ public class PlayerMovementScript : MonoBehaviour {
   * If player leaves keys it will deaccelerate
   */
   void PlayerMovementLogic(){
-    currentSpeed = rb.velocity.magnitude;
-    horizontalMovement = new Vector2 (rb.velocity.x, rb.velocity.z);
+
+    horizontalMovement = new Vector2 (currentSpeedVector.x, currentSpeedVector.z);
+    // Speed limitation
     if (horizontalMovement.magnitude > maxSpeed){
       horizontalMovement = horizontalMovement.normalized;
       horizontalMovement *= maxSpeed;    
     }
+    // Apply new speed
     rb.velocity = new Vector3 (
       horizontalMovement.x,
-      rb.velocity.y,
+      currentSpeedVector.y,
       horizontalMovement.y
     );
+    // deaccelrate when no input 
     if (grounded){
       rb.velocity = Vector3.SmoothDamp(rb.velocity,
         new Vector3(0,rb.velocity.y,0),
         ref slowdownV,
         deaccelerationSpeed);
     }
-
+    // Apply input force
     if (grounded) {
       rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed * Time.deltaTime);
     } else {
@@ -139,6 +144,8 @@ public class PlayerMovementScript : MonoBehaviour {
   */
   void Update()
     {
+    currentSpeed = rb.velocity.magnitude;
+    currentSpeedVector = rb.velocity;
         if (!shopping && shopPanel.activeSelf)
         {
             shopPanel.SetActive(false);

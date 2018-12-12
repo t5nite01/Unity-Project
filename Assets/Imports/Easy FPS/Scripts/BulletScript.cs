@@ -34,7 +34,6 @@ public class BulletScript : MonoBehaviour {
           if (enemyHealth != null){
               enemyHealth.TakeDamage(25, hit.point);
           }
-
 					Destroy(gameObject);
 				}
 			}		
@@ -42,5 +41,4 @@ public class BulletScript : MonoBehaviour {
 		}
 		Destroy(gameObject, 0.1f);
 	}
-
 }
