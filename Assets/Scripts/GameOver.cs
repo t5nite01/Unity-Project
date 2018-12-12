@@ -19,7 +19,7 @@ public class GameOver : MonoBehaviour
 
     }
 
-    // Start game button
+    // Restart game button
     public void RestartClick()
     {
       Scene scene = SceneManager.GetActiveScene();

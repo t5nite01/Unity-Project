@@ -24,10 +24,10 @@ public class PlayerMovementScript : MonoBehaviour {
 
     private Text shopClosedText;
     private BoxCollider shopCollider;
-    private GameObject shopPanel;
+    private GameObject shopPanel, pausePanel;
     [HideInInspector] public GameObject shopInfoText;
 
-    [HideInInspector] public bool shopping;
+    [HideInInspector] public bool shopping, gamePaused;
 
     /*
   * Getting the Players rigidbody component.
@@ -69,6 +69,13 @@ public class PlayerMovementScript : MonoBehaviour {
         shopInfoText.SetActive(false);
         shopPanel.SetActive(false);
         shopping = false;
+    }
+
+    pausePanel = GameObject.Find("PausePanel");
+    if(pausePanel != null)
+    {
+        pausePanel.SetActive(false);
+        gamePaused = false;
     }
   }
 
@@ -144,8 +151,12 @@ public class PlayerMovementScript : MonoBehaviour {
   */
   void Update()
     {
-    currentSpeed = rb.velocity.magnitude;
-    currentSpeedVector = rb.velocity;
+        if (!gamePaused && pausePanel.activeSelf)
+        {
+            pausePanel.SetActive(false);
+        }
+        PauseGame();
+
         if (!shopping && shopPanel.activeSelf)
         {
             shopPanel.SetActive(false);
@@ -153,13 +164,25 @@ public class PlayerMovementScript : MonoBehaviour {
             StartCoroutine(OpenShopAgain());
         }
 
-    Jumping ();
+        currentSpeed = rb.velocity.magnitude;
+        currentSpeedVector = rb.velocity;
 
-    Crouching();
-    PreventStandingInLowHeadroom();
+        Jumping();
 
-    WalkingSound ();
+        Crouching();
+        PreventStandingInLowHeadroom();
+
+        WalkingSound();
     }//end update
+
+    void PauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gamePaused = true;
+            pausePanel.SetActive(true);
+        }
+    }
 
     /*
   * Checks if player is grounded and plays the sound accorindlgy to his speed
