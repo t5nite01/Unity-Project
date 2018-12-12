@@ -11,12 +11,14 @@ public class MenuController : MonoBehaviour {
   private GameObject settingsPanel;
   private GameObject mapSelectPanel;
   
-	void Start () {
-		mainMenuPanel = GameObject.Find("PanelMenu");
-    mapSelectPanel = GameObject.Find("PanelMapSelect");
-    settingsPanel = GameObject.Find("PanelSettings");
-    settingsPanel.SetActive(false);
-    mapSelectPanel.SetActive(false);
+	void Start ()
+    {
+        Time.timeScale = 1;
+        mainMenuPanel = GameObject.Find("PanelMenu");
+        mapSelectPanel = GameObject.Find("PanelMapSelect");
+        settingsPanel = GameObject.Find("PanelSettings");
+        settingsPanel.SetActive(false);
+        mapSelectPanel.SetActive(false);
 	}
 	
 	void Update () {

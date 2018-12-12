@@ -151,13 +151,16 @@ public class PlayerMovementScript : MonoBehaviour {
   */
   void Update()
     {
-        if (!gamePaused && pausePanel.activeSelf)
+        if (pausePanel != null)
         {
-            pausePanel.SetActive(false);
+            if (!gamePaused && pausePanel.activeSelf)
+            {
+                pausePanel.SetActive(false);
+            }
+            PauseGame();
         }
-        PauseGame();
 
-        if (!shopping && shopPanel.activeSelf)
+        if (!shopping && shopPanel != null && shopPanel.activeSelf)
         {
             shopPanel.SetActive(false);
             shopClosedText.enabled = true;
