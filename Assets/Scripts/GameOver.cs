@@ -6,12 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    private GameObject gameOverPanel;
 
     // Use this for initialization
     void Start()
     {
-        gameOverPanel = GameObject.Find("GameOverPanel");
+
     }
 
     // Update is called once per frame

@@ -25,7 +25,7 @@ public class PlayerMovementScript : MonoBehaviour {
     private Text shopClosedText;
     private BoxCollider shopCollider;
     private GameObject shopPanel;
-    public GameObject shopInfoText;
+    [HideInInspector] public GameObject shopInfoText;
 
     [HideInInspector] public bool shopping;
 
