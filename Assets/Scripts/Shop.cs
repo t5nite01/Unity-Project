@@ -25,7 +25,7 @@ public class Shop : MonoBehaviour
     int score, amountOfBulletsToBuy, 
         primaryMoreAmmoPrice, primaryFullAmmoPrice, 
         secondaryMoreAmmoPrice, secondaryFullAmmoPrice;
-    int secondaryGunPrice = 10;
+    int secondaryGunPrice = 2000;
 
     // Use this for initialization
     void Start()
