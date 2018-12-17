@@ -26,33 +26,42 @@ public class GunInventory : MonoBehaviour {
 	 * Calling the method that will update the icons of our guns if we carry any upon start.
 	 * Also will spawn a weapon upon start.
 	 */
-	void Awake(){
-		StartCoroutine("UpdateIconsFromResources");
-		
-    
-	}
-  private void Start() {
-    if (gunsIHave.Count > 0)
+	void Awake()
     {
+		StartCoroutine("UpdateIconsFromResources");
+	}
 
-      primaryGun = Instantiate((GameObject) Resources.Load(gunsIHave[0].ToString()));
-      if (gunsIHave.Count > 1)
-      {
-        secondaryGun = Instantiate((GameObject) Resources.Load(gunsIHave[1].ToString()));
-      }
+    private void Start()
+    {
+        if (gunsIHave.Count > 0)
+        {
+            primaryGun = Instantiate((GameObject)Resources.Load(gunsIHave[0].ToString()));
+        }
+        StartCoroutine("SpawnWeaponUponStart");//to start with a gun
+        if (gunsIHave.Count == 0)
+        {
+            print("No guns in the inventory");
+        }
+        float volume = PlayerPrefs.GetFloat("MainVolume");
+        volume = (volume + 80) / 80;
+        weaponChanging.volume = volume * 0.5f;
     }
-    StartCoroutine ("SpawnWeaponUponStart");//to start with a gun
-		if (gunsIHave.Count == 0)
-			print ("No guns in the inventory");
-    float volume = PlayerPrefs.GetFloat("MainVolume");
-    volume = (volume+80)/80; 
-    weaponChanging.volume = volume*0.5f;
-  }
 
-	/*
+    public void CreateSecondaryWeapon()
+    {
+        gunsIHave.Add("NewGun_auto");
+        secondaryGun = Instantiate((GameObject)Resources.Load(gunsIHave[1].ToString()));
+        secondaryGun.SetActive(false);
+        StartCoroutine("UpdateIconsFromResources");
+
+        AssignHandsAnimator(currentGun);
+    }
+
+    /*
 	*Waits some time then calls for a waepon spawn
 	*/
-	IEnumerator SpawnWeaponUponStart(){
+    IEnumerator SpawnWeaponUponStart()
+    {
 		yield return new WaitForSeconds (0.5f);
 		StartCoroutine("Spawn",0);
 	}
@@ -62,13 +71,13 @@ public class GunInventory : MonoBehaviour {
 	 * and at some point we will change the switchWeaponCoolDown to a negative value so we have to wait until it
 	 * overcomes 0.0f. 
 	 */
-	void Update(){
-
+	void Update()
+    {
 		switchWeaponCooldown += 1 * Time.deltaTime;
-		if(switchWeaponCooldown > 1.2f && Input.GetKey(KeyCode.LeftShift) == false){
+		if(switchWeaponCooldown > 1.2f && Input.GetKey(KeyCode.LeftShift) == false)
+        {
 			Create_Weapon();
 		}
-
 	}
 
 
@@ -85,9 +94,8 @@ public class GunInventory : MonoBehaviour {
 		icons = new Texture[gunsIHave.Count];
 		for(int i = 0; i < gunsIHave.Count; i++){
 			icons[i] = (Texture) Resources.Load("Weap_Icons/" + gunsIHave[i].ToString() + "_img");
-		}
-
-	}
+        }
+    }
 
 	/*
 	 * If used scroll mousewheel or arrows up and down the player will change weapon.
@@ -139,58 +147,73 @@ public class GunInventory : MonoBehaviour {
 	 * It will check if we carry a gun and destroy it, and its then going to load a gun prefab from our Resources Folder.
 	 */
 	IEnumerator Spawn(int weaponIndex){
-		if (weaponChanging)
-			weaponChanging.Play ();
-		else
-			print ("Missing Weapon Changing music clip.");
-		if(currentGun){
-			if(currentGun.name.Contains("Gun")){
-
-				currentHAndsAnimator.SetBool("changingWeapon", true);
-
-				yield return new WaitForSeconds(0.8f); //0.8 time to change waepon, but since there is no change weapon animation there is no need to wait fo weapon taken down
-				
-        if (weaponIndex == 0)
+        if (weaponChanging)
         {
-          secondaryGun.SetActive(false);
-          primaryGun.SetActive(true);
-          currentGun = primaryGun;
-        } 
-        else if (weaponIndex == 1){
-          primaryGun.SetActive(false);
-          secondaryGun.SetActive(true);
-          currentGun = secondaryGun;
-        
-        } 
-				AssignHandsAnimator(currentGun);
-			}
-			else if(currentGun.name.Contains("Sword")){
-				currentHAndsAnimator.SetBool("changingWeapon", true);
-				yield return new WaitForSeconds(0.25f);  //0.5f
-
-				currentHAndsAnimator.SetBool("changingWeapon", false);
-
-				yield return new WaitForSeconds(0.6f);  //1
-				
-
-				if (weaponIndex == 0)
+            weaponChanging.Play();
+        }
+        else
         {
-          Destroy(currentGun);
-          currentGun = (GameObject) Instantiate(primaryGun, transform.position, /*gameObject.transform.rotation*/Quaternion.identity);
-        } 
-        else if (weaponIndex == 1){
-          Destroy(currentGun);
-          currentGun = (GameObject) Instantiate(secondaryGun, transform.position, /*gameObject.transform.rotation*/Quaternion.identity);
-        } 
-        AssignHandsAnimator(currentGun);
-			}
-		}
-		else{
-      secondaryGun.SetActive(false);
-			currentGun = primaryGun;
-			AssignHandsAnimator(currentGun);
-		}
-	}
+            print("Missing Weapon Changing music clip.");
+        }
+
+        if (secondaryGun != null)
+        {
+            if (currentGun)
+            {
+                if (currentGun.name.Contains("Gun"))
+                {
+                    currentHAndsAnimator.SetBool("changingWeapon", true);
+
+                    yield return new WaitForSeconds(0.8f); //0.8 time to change waepon, but since there is no change weapon animation there is no need to wait fo weapon taken down
+
+                    if (weaponIndex == 0)
+                    {
+                        secondaryGun.SetActive(false);
+                        primaryGun.SetActive(true);
+                        currentGun = primaryGun;
+                    }
+                    else if (weaponIndex == 1)
+                    {
+                        primaryGun.SetActive(false);
+                        secondaryGun.SetActive(true);
+                        currentGun = secondaryGun;
+                    }
+                    AssignHandsAnimator(currentGun);
+                }
+                else if (currentGun.name.Contains("Sword"))
+                {
+                    currentHAndsAnimator.SetBool("changingWeapon", true);
+                    yield return new WaitForSeconds(0.25f);  //0.5f
+
+                    currentHAndsAnimator.SetBool("changingWeapon", false);
+
+                    yield return new WaitForSeconds(0.6f);  //1
+
+                    if (weaponIndex == 0)
+                    {
+                        Destroy(currentGun);
+                        currentGun = (GameObject)Instantiate(primaryGun, transform.position, /*gameObject.transform.rotation*/Quaternion.identity);
+                    }
+                    else if (weaponIndex == 1)
+                    {
+                        Destroy(currentGun);
+                        currentGun = (GameObject)Instantiate(secondaryGun, transform.position, /*gameObject.transform.rotation*/Quaternion.identity);
+                    }
+                    AssignHandsAnimator(currentGun);
+                }
+            }
+            else
+            {
+                secondaryGun.SetActive(false);
+                currentGun = primaryGun;
+                AssignHandsAnimator(currentGun);
+            }
+        }
+        else
+        {
+            currentGun = primaryGun;
+        }
+    }
 
 
 	/*
