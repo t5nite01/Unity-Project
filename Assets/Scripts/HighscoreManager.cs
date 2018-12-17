@@ -33,7 +33,7 @@ public class HighscoreManager : MonoBehaviour
     {
       //Get the highScore from 1 - 5
       string highScoreKey = "HighScore" + (i + 1).ToString();
-      int highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+      int highScore = PlayerPrefs.GetInt(highScoreKey , 0);
       // Check if score submitted is high enough to make it to leaderboard.
       if (newScore > highScore)
       {
