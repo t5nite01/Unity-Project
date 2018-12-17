@@ -50,6 +50,12 @@ public class Shop : MonoBehaviour
                 // Pause game
                 Time.timeScale = 0;
 
+                Transform[] allChildren = GameObject.Find("ShopPanel").GetComponentsInChildren<Transform>(true);
+                foreach (Transform child in allChildren)
+                {
+                    child.gameObject.SetActive(true);
+                }
+
                 // Get GameObjects
                 shopScoreText = GameObject.Find("ShopScoreText").GetComponent<Text>();
                 primaryMoreAmmoText = GameObject.Find("1st+30AmmoText").GetComponent<Text>();
