@@ -752,7 +752,7 @@ Prefab:
     - target: {fileID: 114088711753085296, guid: 5fe7cf373a97c89459da9dcb6669d054,
         type: 2}
       propertyPath: accelerationSpeed
-      value: 600000
+      value: 400000
       objectReference: {fileID: 0}
     - target: {fileID: 114088711753085296, guid: 5fe7cf373a97c89459da9dcb6669d054,
         type: 2}
@@ -2688,11 +2688,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 224639354842823438, guid: 9a97578d69c24524b91453cca7379032,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a97578d69c24524b91453cca7379032, type: 2}
   m_IsPrefabAsset: 0
@@ -3255,11 +3250,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 224253636246904332, guid: 2d3b1122aa37c3f49805a5af09917368,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 224465450389929094, guid: 2d3b1122aa37c3f49805a5af09917368,
         type: 2}
       propertyPath: m_AnchorMax.x
@@ -3324,11 +3314,6 @@ Prefab:
         type: 2}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 224253636246904332, guid: 2d3b1122aa37c3f49805a5af09917368,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 224253636246904332, guid: 2d3b1122aa37c3f49805a5af09917368,
         type: 2}
@@ -7450,16 +7435,6 @@ Prefab:
     - target: {fileID: 1941713031705948, guid: 701ab9d1beb04f64eb08fefd963346c3, type: 2}
       propertyPath: m_Name
       value: ShopCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 224598321367380396, guid: 701ab9d1beb04f64eb08fefd963346c3,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224025715724936718, guid: 701ab9d1beb04f64eb08fefd963346c3,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224025715724936718, guid: 701ab9d1beb04f64eb08fefd963346c3,
         type: 2}
