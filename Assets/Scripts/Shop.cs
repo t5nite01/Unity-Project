@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     GunScript primaryGunScript, secondaryGunScript;
     GunInventory gunInventory;
     ScoreManager scoreManager;
+    AudioController audioController;
 
     Text shopScoreText, 
         primaryMoreAmmoText, primaryFullAmmoText,
@@ -35,6 +36,7 @@ public class Shop : MonoBehaviour
         playerMovement = player.GetComponent<PlayerMovementScript>();
         gunInventory = player.GetComponent<GunInventory>();
         scoreManager = player.GetComponent<ScoreManager>();
+        audioController = GameObject.Find("AudioManager").GetComponent<AudioController>();
     }
 
     // Update is called once per frame
@@ -49,6 +51,8 @@ public class Shop : MonoBehaviour
                 justEntered = false;
                 // Pause game
                 Time.timeScale = 0;
+                // Mute volume
+                audioController.mixer.SetFloat("MainVolume", -80);
 
                 Transform[] allChildren = GameObject.Find("ShopPanel").GetComponentsInChildren<Transform>(true);
                 foreach (Transform child in allChildren)
@@ -247,6 +251,8 @@ public class Shop : MonoBehaviour
     {
         // Resume game
         Time.timeScale = 1;
+        // Unmute volume
+        audioController.mixer.SetFloat("MainVolume", PlayerPrefs.GetFloat("MainVolume"));
         // Resume score script
         scoreManager.setScore(score);
         scoreManager.resume();

@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     GameObject player;
     PlayerMovementScript playerMovement;
     ScoreManager scoreManager;
+    AudioController audioController;
 
     Text pauseScoreText, pauseKillsText;
     bool justEntered;
@@ -21,6 +22,7 @@ public class PauseMenu : MonoBehaviour
         player = GameObject.Find("Player");
         playerMovement = player.GetComponent<PlayerMovementScript>();
         scoreManager = player.GetComponent<ScoreManager>();
+        audioController = GameObject.Find("AudioManager").GetComponent<AudioController>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,8 @@ public class PauseMenu : MonoBehaviour
                 justEntered = false;
                 // Pause game
                 Time.timeScale = 0;
+                // Mute volume
+                audioController.mixer.SetFloat("MainVolume", -80);
                 // Get score text components
                 pauseScoreText = GameObject.Find("PauseScoreText").GetComponent<Text>();
                 pauseKillsText = GameObject.Find("PauseKillsText").GetComponent<Text>();
@@ -54,6 +58,9 @@ public class PauseMenu : MonoBehaviour
     {
         // Resume game
         Time.timeScale = 1;
+        // Unmute volume
+        audioController.mixer.SetFloat("MainVolume", PlayerPrefs.GetFloat("MainVolume"));
+
         playerMovement.gamePaused = false;
         // Resume score script
         scoreManager.resume();
@@ -67,6 +74,9 @@ public class PauseMenu : MonoBehaviour
     public void RestartClick()
     {
         Time.timeScale = 1;
+        // Unmute volume
+        audioController.mixer.SetFloat("MainVolume", PlayerPrefs.GetFloat("MainVolume"));
+
         playerMovement.gamePaused = false;
         Scene scene = SceneManager.GetActiveScene();
         StartCoroutine(LoadScene(scene.name));
@@ -84,6 +94,9 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenuClick()
     {
+        // Unmute volume
+        audioController.mixer.SetFloat("MainVolume", PlayerPrefs.GetFloat("MainVolume"));
+
         string scene = "StartScreen";
         StartCoroutine(LoadScene(scene));
     }
