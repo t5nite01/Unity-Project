@@ -25,7 +25,6 @@ public class PlayerMovementScript : MonoBehaviour {
     private Text shopClosedText;
     private BoxCollider shopCollider;
     private GameObject shopPanel, pausePanel;
-    [HideInInspector] public GameObject shopInfoText;
 
     [HideInInspector] public bool shopping, gamePaused;
 
@@ -65,8 +64,6 @@ public class PlayerMovementScript : MonoBehaviour {
     
     if(shopPanel != null)
     {
-        shopInfoText = GameObject.Find("ShopInfoText");
-        shopInfoText.SetActive(false);
         shopPanel.SetActive(false);
         shopping = false;
     }

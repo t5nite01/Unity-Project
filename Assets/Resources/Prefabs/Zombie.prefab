@@ -1407,7 +1407,7 @@ MonoBehaviour:
   attackDamage: 10
   currentHealth: 0
   sinkSpeed: 2.5
-  scoreValue: 10
+  scoreValue: 50
   deathClip: {fileID: 8300000, guid: 9bc3698e477ac4560b31718c410cd66f, type: 3}
   damageSound: {fileID: 8300000, guid: 137bb003119aa47dfb5ed791d840d650, type: 3}
   walkSound: {fileID: 8300000, guid: ce1415c1538344a3f9c07f2388ee0dee, type: 3}

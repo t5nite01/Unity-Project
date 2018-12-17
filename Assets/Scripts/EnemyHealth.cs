@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
   public int attackDamage = 10;
   public int currentHealth;                   // The current health the enemy has.
   public float sinkSpeed = 2f;              // The speed at which the enemy sinks through the floor when dead.
-  public int scoreValue = 50;                 // The amount added to the player's score when the enemy dies.
+  [HideInInspector] public int scoreValue = 50;                 // The amount added to the player's score when the enemy dies.
   public AudioClip deathClip;                 // The sound to play when the enemy dies.
   public AudioClip damageSound;
   public AudioClip walkSound;
