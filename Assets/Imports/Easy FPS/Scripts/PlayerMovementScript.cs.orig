@@ -146,6 +146,7 @@ public class PlayerMovementScript : MonoBehaviour {
   */
   void Update()
     {
+<<<<<<< HEAD
         if (pausePanel != null)
         {
             if (!gamePaused && pausePanel.activeSelf)
@@ -161,6 +162,18 @@ public class PlayerMovementScript : MonoBehaviour {
             shopClosedText.enabled = true;
             StartCoroutine(OpenShopAgain());
         }
+=======
+    currentSpeed = rb.velocity.magnitude;
+    currentSpeedVector = rb.velocity;
+
+ 
+    if (!shopping && shopPanel.activeSelf)
+    {
+        shopPanel.SetActive(false);
+        shopClosedText.enabled = true;
+        StartCoroutine(OpenShopAgain());
+    }
+>>>>>>> Tonii
 
         currentSpeed = rb.velocity.magnitude;
         currentSpeedVector = rb.velocity;

@@ -128,6 +128,9 @@ public class PlayerHealth : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;     // Show the cursor
 
+        GameObject.Find("HighScoreManager").GetComponent<HighscoreManager>().SubmitNewPlayerScore(
+          Mathf.RoundToInt(float.Parse(GetComponent<ScoreManager>().getScore().ToString())));  
+
         // Turn off any remaining shooting effects.
         //playerShooting.DisableEffects();
 

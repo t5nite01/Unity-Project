@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
   private Text text;        // Reference to the Text component.
   private float score;        // The player's score.
+  private float totalScore;
   private float timer;
   private float timeScaler; // Gain score expotentially overtime
   private bool running; // To stop script on player death.
@@ -17,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     
       // Reset.
       score = 0;
+      totalScore = 0;
       timer = 0;
       timeScaler = 0;
       running = true;
@@ -30,6 +32,7 @@ public class ScoreManager : MonoBehaviour
       if (timer >= 1 )
       {
         score += 1+timeScaler;
+        totalScore += 1+timeScaler;
         timeScaler += 0.2f;
         timer = 0;
       }
@@ -48,6 +51,7 @@ public class ScoreManager : MonoBehaviour
 
   public void addKillAndScore(int amount){
     score += amount;
+    totalScore += amount;
     kills += 1;
   }
 
@@ -69,5 +73,8 @@ public class ScoreManager : MonoBehaviour
 
   public void resume(){
     running = true;
+  }
+  public float getTotalScore(){
+    return totalScore;
   }
 }
