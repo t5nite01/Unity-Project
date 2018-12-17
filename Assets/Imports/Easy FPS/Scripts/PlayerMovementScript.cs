@@ -21,7 +21,6 @@ public class PlayerMovementScript : MonoBehaviour {
     float m_CapsuleHeight;
     CapsuleCollider m_Capsule;
     bool m_Crouching;
-
     private Text shopClosedText;
     private BoxCollider shopCollider;
     private GameObject shopPanel;
@@ -73,7 +72,7 @@ public class PlayerMovementScript : MonoBehaviour {
   }
 
   private Vector3 slowdownV;
-  private Vector2 horizontalMovement;
+  private Vector3 horizontalMovement;
   /*
   * Raycasting for meele attacks and input movement handling here.
   */
@@ -88,8 +87,8 @@ public class PlayerMovementScript : MonoBehaviour {
   * If player leaves keys it will deaccelerate
   */
   void PlayerMovementLogic(){
-
-    horizontalMovement = new Vector2 (currentSpeedVector.x, currentSpeedVector.z);
+    
+    horizontalMovement = new Vector3 (currentSpeedVector.x, 0, currentSpeedVector.z);
     // Speed limitation
     if (horizontalMovement.magnitude > maxSpeed){
       horizontalMovement = horizontalMovement.normalized;
@@ -99,8 +98,8 @@ public class PlayerMovementScript : MonoBehaviour {
     rb.velocity = new Vector3 (
       horizontalMovement.x,
       currentSpeedVector.y,
-      horizontalMovement.y
-    );
+      horizontalMovement.z
+    ); 
     // deaccelrate when no input 
     if (grounded){
       rb.velocity = Vector3.SmoothDamp(rb.velocity,
@@ -108,15 +107,14 @@ public class PlayerMovementScript : MonoBehaviour {
         ref slowdownV,
         deaccelerationSpeed);
     }
+
     // Apply input force
     if (grounded) {
       rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed * Time.deltaTime);
     } else {
       rb.AddRelativeForce (Input.GetAxis ("Horizontal") * accelerationSpeed / 2 * Time.deltaTime, 0, Input.GetAxis ("Vertical") * accelerationSpeed / 2 * Time.deltaTime);
-
     }
-
-    /*
+      /*
     * Slippery issues fixed here
     */
     if (Input.GetAxis ("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0) {
@@ -146,12 +144,14 @@ public class PlayerMovementScript : MonoBehaviour {
     {
     currentSpeed = rb.velocity.magnitude;
     currentSpeedVector = rb.velocity;
-        if (!shopping && shopPanel.activeSelf)
-        {
-            shopPanel.SetActive(false);
-            shopClosedText.enabled = true;
-            StartCoroutine(OpenShopAgain());
-        }
+
+ 
+    if (!shopping && shopPanel.activeSelf)
+    {
+        shopPanel.SetActive(false);
+        shopClosedText.enabled = true;
+        StartCoroutine(OpenShopAgain());
+    }
 
     Jumping ();
 

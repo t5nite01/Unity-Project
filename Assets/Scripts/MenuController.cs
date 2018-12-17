@@ -10,11 +10,15 @@ public class MenuController : MonoBehaviour {
   private GameObject mainMenuPanel;
   private GameObject settingsPanel;
   private GameObject mapSelectPanel;
+  private GameObject highScorePanel;
+  private GameObject highScoreleftPanel;
   
 	void Start () {
 		mainMenuPanel = GameObject.Find("PanelMenu");
     mapSelectPanel = GameObject.Find("PanelMapSelect");
     settingsPanel = GameObject.Find("PanelSettings");
+    highScorePanel = GameObject.Find("PanelHighscore");
+    highScoreleftPanel = GameObject.Find("PanelleftHighscore");
     settingsPanel.SetActive(false);
     mapSelectPanel.SetActive(false);
 	}
@@ -39,6 +43,7 @@ public class MenuController : MonoBehaviour {
           yield return null;
       }
   }
+  
   public void StartGameClick(){
     mainMenuPanel.SetActive(false);
     mapSelectPanel.SetActive(true);
@@ -48,7 +53,10 @@ public class MenuController : MonoBehaviour {
     settingsPanel.SetActive(true);
   }
   public void HighscoreClick(){
-
+    highScorePanel.SetActive(true);
+    highScoreleftPanel.SetActive(true);
+    mainMenuPanel.SetActive(false);
+    GameObject.Find("HighScoreManager").GetComponent<HighscoreManager>().LoadHighscores();
   }
   public void QuitClick(){
     Application.Quit();
@@ -64,6 +72,11 @@ public class MenuController : MonoBehaviour {
   public void BackClickSettings(){
     mainMenuPanel.SetActive(true);
     settingsPanel.SetActive(false);
+  }
+  public void BackHighscoreClick(){
+    highScorePanel.SetActive(false);
+    highScoreleftPanel.SetActive(false);
+    mainMenuPanel.SetActive(true);
   }
 
  private void LoadGameData()
