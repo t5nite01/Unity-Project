@@ -8,7 +8,6 @@ public class Shop : MonoBehaviour
 {
     GameObject player;
     PlayerMovementScript playerMovement;
-    MouseLookScript mouseLook;
     GunScript primaryGunScript, secondaryGunScript;
     GunInventory gunInventory;
     ScoreManager scoreManager;
@@ -33,7 +32,6 @@ public class Shop : MonoBehaviour
         
         player = GameObject.Find("Player");
         playerMovement = player.GetComponent<PlayerMovementScript>();
-        mouseLook = player.GetComponent<MouseLookScript>();
         gunInventory = player.GetComponent<GunInventory>();
         scoreManager = player.GetComponent<ScoreManager>();
     }
