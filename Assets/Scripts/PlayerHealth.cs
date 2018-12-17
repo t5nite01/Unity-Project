@@ -22,7 +22,8 @@ public class PlayerHealth : MonoBehaviour
     SkinnedMeshRenderer skinnedMeshRenderer;                    // Reference to the player's Skinned Mesh Renderer.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
-     
+    private float timeFromLastDamage;
+
     private GameObject gameOverPanel;
 
     private IEnumerator deathCamera;
@@ -51,21 +52,32 @@ public class PlayerHealth : MonoBehaviour
 
     void Update ()
     {
-        // If the player has just been damaged...
-        if(damaged)
+        if (!isDead)
         {
-            // ... set the colour of the damageImage to the flash colour.
-            //damageImage.color = flashColour;
-        }
-        // Otherwise...
-        else
-        {
-            // ... transition the colour back to clear.
-            //damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
+            timeFromLastDamage += Time.deltaTime;
 
-        // Reset the damaged flag.
-        damaged = false;
+            // If the player has just been damaged...
+            if (damaged)
+            {
+                // ... set the colour of the damageImage to the flash colour.
+                //damageImage.color = flashColour;
+            }
+            // Otherwise...
+            else
+            {
+                // ... transition the colour back to clear.
+                //damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            }
+
+            if (timeFromLastDamage > 5 && currentHealth < 100)
+            {
+                currentHealth += 1;
+                timeFromLastDamage -= 0.2f;
+                healthSlider.value = currentHealth;
+            }
+            // Reset the damaged flag.
+            damaged = false;
+        }
     }
 
 
@@ -73,6 +85,8 @@ public class PlayerHealth : MonoBehaviour
     {
         // Set the damaged flag so the screen will flash.
         damaged = true;
+
+        timeFromLastDamage = 0;
 
         // Reduce the current health by the damage amount.
         currentHealth -= amount;

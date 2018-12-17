@@ -8,16 +8,15 @@ public class Shop : MonoBehaviour
 {
     GameObject player;
     PlayerMovementScript playerMovement;
-    MouseLookScript mouseLook;
     GunScript primaryGunScript, secondaryGunScript;
     GunInventory gunInventory;
     ScoreManager scoreManager;
 
     Text shopScoreText, 
-        primaryMoreAmmoText, primaryFullAmmoText, 
-        secondaryMoreAmmoText, secondaryFullAmmoText;
-    Button primaryReloadButton, primaryMoreAmmoButton, primaryFullAmmoButton, 
-        secondaryReloadButton, secondaryMoreAmmoButton, secondaryFullAmmoButton;
+        primaryMoreAmmoText, primaryFullAmmoText,
+        secondaryBuyText, secondaryMoreAmmoText, secondaryFullAmmoText;
+    Button primaryReloadButton, primaryMoreAmmoButton, primaryFullAmmoButton,
+        secondaryBuyButton, secondaryReloadButton, secondaryMoreAmmoButton, secondaryFullAmmoButton;
 
     bool justEntered;
     int maxBullets = 180;
@@ -25,6 +24,7 @@ public class Shop : MonoBehaviour
     int score, amountOfBulletsToBuy, 
         primaryMoreAmmoPrice, primaryFullAmmoPrice, 
         secondaryMoreAmmoPrice, secondaryFullAmmoPrice;
+    int secondaryGunPrice = 10;
 
     // Use this for initialization
     void Start()
@@ -33,7 +33,6 @@ public class Shop : MonoBehaviour
         
         player = GameObject.Find("Player");
         playerMovement = player.GetComponent<PlayerMovementScript>();
-        mouseLook = player.GetComponent<MouseLookScript>();
         gunInventory = player.GetComponent<GunInventory>();
         scoreManager = player.GetComponent<ScoreManager>();
     }
@@ -50,39 +49,75 @@ public class Shop : MonoBehaviour
                 justEntered = false;
                 // Pause game
                 Time.timeScale = 0;
-                // Get score text components
+
+                // Get GameObjects
                 shopScoreText = GameObject.Find("ShopScoreText").GetComponent<Text>();
                 primaryMoreAmmoText = GameObject.Find("1st+30AmmoText").GetComponent<Text>();
                 primaryFullAmmoText = GameObject.Find("1stFullAmmoText").GetComponent<Text>();
-                secondaryMoreAmmoText = GameObject.Find("2nd+30AmmoText").GetComponent<Text>();
-                secondaryFullAmmoText = GameObject.Find("2ndFullAmmoText").GetComponent<Text>();
-                //Get buttons
+
                 primaryReloadButton = GameObject.Find("1stReloadButton").GetComponent<Button>();
                 primaryMoreAmmoButton = GameObject.Find("1st+30AmmoButton").GetComponent<Button>();
                 primaryFullAmmoButton = GameObject.Find("1stFullAmmoButton").GetComponent<Button>();
+
+                primaryGunScript = gunInventory.primaryGun.GetComponent<GunScript>();
+
+                secondaryBuyText = GameObject.Find("2ndBuyText").GetComponent<Text>();
+                secondaryBuyButton = GameObject.Find("2ndBuyButton").GetComponent<Button>();
+
+                secondaryMoreAmmoText = GameObject.Find("2nd+30AmmoText").GetComponent<Text>();
+                secondaryFullAmmoText = GameObject.Find("2ndFullAmmoText").GetComponent<Text>();
+
                 secondaryReloadButton = GameObject.Find("2ndReloadButton").GetComponent<Button>();
                 secondaryMoreAmmoButton = GameObject.Find("2nd+30AmmoButton").GetComponent<Button>();
                 secondaryFullAmmoButton = GameObject.Find("2ndFullAmmoButton").GetComponent<Button>();
+
+                if (gunInventory.secondaryGun == null)
+                {
+                    secondaryBuyText.text = "Buy 2nd Gun: \n" + secondaryGunPrice.ToString();
+
+                    secondaryBuyButton.gameObject.SetActive(true);
+                    secondaryReloadButton.gameObject.SetActive(false);
+                    secondaryMoreAmmoButton.gameObject.SetActive(false);
+                    secondaryFullAmmoButton.gameObject.SetActive(false);
+                }
+                else
+                {
+                    secondaryBuyButton.gameObject.SetActive(false);
+                    secondaryReloadButton.gameObject.SetActive(true);
+                    secondaryMoreAmmoButton.gameObject.SetActive(true);
+                    secondaryFullAmmoButton.gameObject.SetActive(true);
+                    secondaryGunScript = gunInventory.secondaryGun.GetComponent<GunScript>();
+                }
                 // Stop score script
                 scoreManager.stop();
                 // Show the cursor
                 Cursor.lockState = CursorLockMode.None;
-
-                primaryGunScript = gunInventory.primaryGun.GetComponent<GunScript>();
-                secondaryGunScript = gunInventory.secondaryGun.GetComponent<GunScript>();
             }
             // Set score to screen
             score = Mathf.RoundToInt(scoreManager.getScore());
             shopScoreText.text = "Score: " + score.ToString();
 
-            if (primaryGunScript != null && secondaryGunScript != null)
+            if (primaryGunScript != null)
             {
-                CheckPrices();
+                CheckPrimaryGunPrices();
+            }
+
+            if (secondaryGunScript != null)
+            {
+                CheckSecondaryGunPrices();
+            }
+            else
+            {
+                if (score < secondaryGunPrice)
+                {
+                    secondaryBuyButton.interactable = false;
+                    ChangeImageMaterial(secondaryBuyButton);
+                }
             }
         }
     }
 
-    void CheckPrices()
+    void CheckPrimaryGunPrices()
     {
         amountOfBulletsToBuy = Mathf.RoundToInt(maxBullets - primaryGunScript.bulletsIHave);
         primaryFullAmmoPrice = amountOfBulletsToBuy * bulletPrice;
@@ -90,21 +125,27 @@ public class Shop : MonoBehaviour
         amountOfBulletsToBuy = 30;
         primaryMoreAmmoPrice = amountOfBulletsToBuy * bulletPrice;
         
+        primaryMoreAmmoText.text = "+30 Ammo: \n" + primaryMoreAmmoPrice.ToString();
+        primaryFullAmmoText.text = "Full Ammo: \n" + primaryFullAmmoPrice.ToString();
+
+        PrimaryGunButtons();
+    }
+
+    void CheckSecondaryGunPrices()
+    {
         amountOfBulletsToBuy = Mathf.RoundToInt(maxBullets - secondaryGunScript.bulletsIHave);
         secondaryFullAmmoPrice = amountOfBulletsToBuy * bulletPrice;
 
         amountOfBulletsToBuy = 30;
         secondaryMoreAmmoPrice = amountOfBulletsToBuy * bulletPrice;
-
-        primaryMoreAmmoText.text = "+30 Ammo: \n" + primaryMoreAmmoPrice.ToString();
-        primaryFullAmmoText.text = "Full Ammo: \n" + primaryFullAmmoPrice.ToString();
+        
         secondaryMoreAmmoText.text = "+30 Ammo: \n" + secondaryMoreAmmoPrice.ToString();
         secondaryFullAmmoText.text = "Full Ammo: \n" + secondaryFullAmmoPrice.ToString();
 
-        EnableAndDisableButtons();
+        SecondaryGunButtons();
     }
 
-    void Buy(int scoreAmount, GunScript gun, int bulletAmount)
+    void BuyAmmo(int scoreAmount, GunScript gun, int bulletAmount)
     {
         if (scoreManager.removeScore(scoreAmount))
         {
@@ -114,21 +155,32 @@ public class Shop : MonoBehaviour
                 gun.bulletsIHave = maxBullets;
             }
         }
-        else
-        {
-            StartCoroutine(ShowMessage("Not enough score to buy", 3f));
-        }
 
-        CheckPrices();
+        if (gun == primaryGunScript)
+        {
+            CheckPrimaryGunPrices();
+        }
+        else if (gun == secondaryGunScript)
+        {
+            CheckSecondaryGunPrices();
+        }
     }
 
-    IEnumerator ShowMessage(string message, float delay)
+    public void Buy2ndBuyClick(Button button)
     {
-        playerMovement.shopInfoText.SetActive(true);
-        Text infoText = playerMovement.shopInfoText.GetComponent<Text>();
-        infoText.text = message;
-        yield return new WaitForSecondsRealtime(delay);
-        playerMovement.shopInfoText.SetActive(false);
+        if (scoreManager.removeScore(secondaryGunPrice))
+        {
+            gunInventory.CreateSecondaryWeapon();
+            secondaryGunScript = gunInventory.secondaryGun.GetComponent<GunScript>();
+
+            secondaryReloadButton.gameObject.SetActive(true);
+            secondaryMoreAmmoButton.gameObject.SetActive(true);
+            secondaryFullAmmoButton.gameObject.SetActive(true);
+
+            secondaryBuyButton.gameObject.SetActive(false);
+
+            CheckSecondaryGunPrices();
+        }
     }
 
     public void ReloadClick(Button button)
@@ -136,13 +188,13 @@ public class Shop : MonoBehaviour
         if (button.name.Contains("1st"))
         {
             primaryGunScript.ReloadMethod();
+            CheckPrimaryGunPrices();
         }
         else if (button.name.Contains("2nd"))
         {
             secondaryGunScript.ReloadMethod();
+            CheckSecondaryGunPrices();
         }
-
-        CheckPrices();
     }
 
     public void MoreAmmoClick(Button button)
@@ -152,11 +204,7 @@ public class Shop : MonoBehaviour
             if (primaryGunScript.bulletsIHave + 30 < maxBullets)
             {
                 amountOfBulletsToBuy = 30;
-                Buy(primaryMoreAmmoPrice, primaryGunScript, amountOfBulletsToBuy);
-            }
-            else
-            {
-                StartCoroutine(ShowMessage("More ammo than max - 30", 3f));
+                BuyAmmo(primaryMoreAmmoPrice, primaryGunScript, amountOfBulletsToBuy);
             }
         }
         else if (button.name.Contains("2nd"))
@@ -164,11 +212,7 @@ public class Shop : MonoBehaviour
             if (secondaryGunScript.bulletsIHave + 30 < maxBullets)
             {
                 amountOfBulletsToBuy = 30;
-                Buy(secondaryMoreAmmoPrice, secondaryGunScript, amountOfBulletsToBuy);
-            }
-            else
-            {
-                StartCoroutine(ShowMessage("More ammo than max - 30", 3f));
+                BuyAmmo(secondaryMoreAmmoPrice, secondaryGunScript, amountOfBulletsToBuy);
             }
         }
     }
@@ -180,11 +224,7 @@ public class Shop : MonoBehaviour
             if (primaryGunScript.bulletsIHave < maxBullets)
             {
                 amountOfBulletsToBuy = Mathf.RoundToInt(maxBullets - primaryGunScript.bulletsIHave);
-                Buy(primaryFullAmmoPrice, primaryGunScript, amountOfBulletsToBuy);
-            }
-            else
-            {
-                StartCoroutine(ShowMessage("Ammo already full", 3f));
+                BuyAmmo(primaryFullAmmoPrice, primaryGunScript, amountOfBulletsToBuy);
             }
         }
         else if (button.name.Contains("2nd"))
@@ -192,11 +232,7 @@ public class Shop : MonoBehaviour
             if (secondaryGunScript.bulletsIHave < maxBullets)
             {
                 amountOfBulletsToBuy = Mathf.RoundToInt(maxBullets - secondaryGunScript.bulletsIHave);
-                Buy(secondaryFullAmmoPrice, secondaryGunScript, amountOfBulletsToBuy);
-            }
-            else
-            {
-                StartCoroutine(ShowMessage("Ammo already full", 3f));
+                BuyAmmo(secondaryFullAmmoPrice, secondaryGunScript, amountOfBulletsToBuy);
             }
         }
     }
@@ -216,7 +252,7 @@ public class Shop : MonoBehaviour
         justEntered = true;
     }
 
-    void EnableAndDisableButtons()
+    void PrimaryGunButtons()
     {
         if (primaryGunScript.bulletsInTheGun == 30)
         {
@@ -227,16 +263,6 @@ public class Shop : MonoBehaviour
         {
             primaryReloadButton.interactable = true;
             ChangeImageMaterial(primaryReloadButton);
-        }
-        if (secondaryGunScript.bulletsInTheGun == 30)
-        {
-            secondaryReloadButton.interactable = false;
-            ChangeImageMaterial(secondaryReloadButton);
-        }
-        else
-        {
-            secondaryReloadButton.interactable = true;
-            ChangeImageMaterial(secondaryReloadButton);
         }
         if (score < primaryFullAmmoPrice || primaryFullAmmoPrice == 0)
         {
@@ -257,6 +283,20 @@ public class Shop : MonoBehaviour
         {
             primaryMoreAmmoButton.interactable = true;
             ChangeImageMaterial(primaryMoreAmmoButton);
+        }
+    }
+
+    void SecondaryGunButtons()
+    {
+        if (secondaryGunScript.bulletsInTheGun == 30)
+        {
+            secondaryReloadButton.interactable = false;
+            ChangeImageMaterial(secondaryReloadButton);
+        }
+        else
+        {
+            secondaryReloadButton.interactable = true;
+            ChangeImageMaterial(secondaryReloadButton);
         }
         if (score < secondaryFullAmmoPrice || secondaryFullAmmoPrice == 0)
         {

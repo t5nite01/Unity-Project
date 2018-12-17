@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
   public int attackDamage = 10;
   public int currentHealth;                   // The current health the enemy has.
   public float sinkSpeed = 2f;              // The speed at which the enemy sinks through the floor when dead.
-  public int scoreValue = 50;                 // The amount added to the player's score when the enemy dies.
+  [HideInInspector] public int scoreValue = 50;                 // The amount added to the player's score when the enemy dies.
   public AudioClip deathClip;                 // The sound to play when the enemy dies.
   public AudioClip damageSound;
   public AudioClip walkSound;
@@ -15,7 +15,7 @@ public class EnemyHealth : MonoBehaviour
   AudioSource enemyAudio;                     // Reference to the audio source.
   ParticleSystem hitParticles;                // Reference to the particle system that plays when the enemy is damaged.
   CapsuleCollider capsuleCollider;            // Reference to the capsule collider.
-  Rigidbody rigidbody;
+  Rigidbody rigidBody;
   EnemyAttack enemyAttack; 
   ZombieController zombieController;
   ScoreManager scoreManager;
@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
     enemyAudio = GetComponent<AudioSource>();
     hitParticles = GetComponentInChildren<ParticleSystem>();
     capsuleCollider = GetComponent<CapsuleCollider>();
-    rigidbody = GetComponent<Rigidbody>();
+    rigidBody = GetComponent<Rigidbody>();
     enemyAttack = GetComponent<EnemyAttack>();
     zombieController = GetComponent<ZombieController>();
     scoreManager = GameObject.FindWithTag("Player").GetComponent<ScoreManager>();
@@ -90,7 +90,7 @@ public class EnemyHealth : MonoBehaviour
     zombieController.Kill();
     // Turn the collider into a trigger so shots can pass through it.
     capsuleCollider.isTrigger = true;
-    rigidbody.useGravity = false;
+    rigidBody.useGravity = false;
     scoreManager.addKillAndScore(scoreValue);
 
     // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
