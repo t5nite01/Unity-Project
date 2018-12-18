@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
       difficultyScaler += 0.03f;
       if (spawnTime > 2)
       {
-        spawnTime -= 0.1f;   
+        spawnTime -= 0.075f;   
         CancelInvoke("Spawn");
         InvokeRepeating("Spawn", spawnTime, spawnTime);
       }
@@ -51,8 +51,8 @@ public class EnemyManager : MonoBehaviour
 
       float distanceFromPlayer = Vector3.Distance(spawnPoints[i].position, player.transform.position);
       
-      // Spawn enemies if closer than 50m and farther than 10m
-      if(distanceFromPlayer > 10 && 50 < distanceFromPlayer){
+      // Spawn enemies if closer than 80m and farther than 10m
+      if(distanceFromPlayer > 10 && 80 < distanceFromPlayer){
         viableSpawns[i] = spawnPoints[i];
       }
     }

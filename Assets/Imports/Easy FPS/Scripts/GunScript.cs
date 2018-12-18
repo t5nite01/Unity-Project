@@ -191,10 +191,11 @@ public class GunScript : MonoBehaviour {
 		if (Input.GetAxis ("Vertical") > 0 && Input.GetAxisRaw ("Fire2") == 0 && meeleAttack == false && Input.GetAxisRaw ("Fire1") == 0) {
 			if (Input.GetKeyDown (KeyCode.LeftShift)) {
 				if (pmS.maxSpeed == walkingSpeed) {
-					pmS.maxSpeed = runningSpeed;//sets player movement peed to max
-          
+					pmS.maxSpeed = runningSpeed; //sets player movement speed to max
+          handsAnimator.SetInteger("maxSpeed", runningSpeed);
 				} else {
 					pmS.maxSpeed = walkingSpeed;
+          handsAnimator.SetInteger("maxSpeed", walkingSpeed);
 				}
 			}
 		} else {

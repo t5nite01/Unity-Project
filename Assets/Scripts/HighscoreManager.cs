@@ -11,20 +11,29 @@ public class HighscoreManager : MonoBehaviour
   List<GameObject> scores;
   private GameObject highScorePanel;
   private GameObject highScoreleftPanel;
+  private static HighscoreManager highscoreManager;
 
   void Start()
   {
     DontDestroyOnLoad(gameObject);
-
-    highScore = new int[5];
-    scores = new List<GameObject>();
-    highScorePanel = GameObject.Find("PanelHighscore");
-    highScoreleftPanel = GameObject.Find("PanelleftHighscore");
+    if (highscoreManager == null) {
+      highscoreManager = this;
+      highScore = new int[5];
+      scores = new List<GameObject>();
+      highScorePanel = GameObject.Find("PanelHighscore");
+      highScoreleftPanel = GameObject.Find("PanelleftHighscore");
     
-    LoadHighscores();
+      LoadHighscores();
 
-    highScoreleftPanel.SetActive(false);
-    highScorePanel.SetActive(false);
+      highScoreleftPanel.SetActive(false);
+      highScorePanel.SetActive(false);
+    } else {
+      highScorePanel = GameObject.Find("PanelHighscore");
+      highScoreleftPanel = GameObject.Find("PanelleftHighscore");
+      highScoreleftPanel.SetActive(false);
+      highScorePanel.SetActive(false);
+      Object.Destroy(gameObject);
+    }
   }
 
   public void SubmitNewPlayerScore(int newScore)

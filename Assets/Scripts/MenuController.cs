@@ -14,13 +14,15 @@ public class MenuController : MonoBehaviour {
   private GameObject highScoreleftPanel;
   
 	void Start ()
-    {
-        Time.timeScale = 1;
-        mainMenuPanel = GameObject.Find("PanelMenu");
-        mapSelectPanel = GameObject.Find("PanelMapSelect");
-        settingsPanel = GameObject.Find("PanelSettings");
-        settingsPanel.SetActive(false);
-        mapSelectPanel.SetActive(false);
+  {
+    Time.timeScale = 1;
+    mainMenuPanel = GameObject.Find("PanelMenu");
+    mapSelectPanel = GameObject.Find("PanelMapSelect");
+    settingsPanel = GameObject.Find("PanelSettings");
+    highScorePanel = GameObject.Find("PanelHighscore");
+    highScoreleftPanel = GameObject.Find("PanelleftHighscore");
+    settingsPanel.SetActive(false);
+    mapSelectPanel.SetActive(false);
 	}
 	
 	void Update () {
