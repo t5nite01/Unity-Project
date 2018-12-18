@@ -5246,7 +5246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TapZombie
+  m_Text: Tap a Zombie
 --- !u!222 &719998326
 CanvasRenderer:
   m_ObjectHideFlags: 0
