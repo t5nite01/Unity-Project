@@ -11,12 +11,8 @@ public class EnemyHealth : MonoBehaviour
   public AudioClip deathClip;                 // The sound to play when the enemy dies.
   public AudioClip damageSound;
   public AudioClip walkSound;
-  Animator anim;                              // Reference to the animator.
-  AudioSource enemyAudio;                     // Reference to the audio source.
-  ParticleSystem hitParticles;                // Reference to the particle system that plays when the enemy is damaged.
   CapsuleCollider capsuleCollider;            // Reference to the capsule collider.
   Rigidbody rigidBody;
-  EnemyAttack enemyAttack; 
   ZombieController zombieController;
   ScoreManager scoreManager;
   private AudioSource zombieAS;
@@ -28,12 +24,8 @@ public class EnemyHealth : MonoBehaviour
   {
     // Setting up the references.
     zombieAS = GetComponent<AudioSource>();
-    anim = GetComponent<Animator>();
-    enemyAudio = GetComponent<AudioSource>();
-    hitParticles = GetComponentInChildren<ParticleSystem>();
     capsuleCollider = GetComponent<CapsuleCollider>();
     rigidBody = GetComponent<Rigidbody>();
-    enemyAttack = GetComponent<EnemyAttack>();
     zombieController = GetComponent<ZombieController>();
     scoreManager = GameObject.FindWithTag("Player").GetComponent<ScoreManager>();
 

@@ -12,8 +12,6 @@ public class ZombieController : MonoBehaviour
   Animation zombieAnimation;
   Transform player;               // Reference to the player's position.
   PlayerHealth playerHealth;      // Reference to the player's health.
-  EnemyHealth enemyHealth;        // Reference to this enemy's health.
-  EnemyAttack enemyAttack;
   NavMeshAgent nav;               // Reference to the nav mesh agent.
 
   void Start()
@@ -26,8 +24,6 @@ public class ZombieController : MonoBehaviour
     // Set up the references.
     player = GameObject.FindGameObjectWithTag("Player").transform;
     playerHealth = player.GetComponent<PlayerHealth>();
-    enemyHealth = GetComponent<EnemyHealth>();
-    enemyAttack = GetComponent<EnemyAttack>();
     nav = GetComponent<NavMeshAgent>();
     zombieAnimator = GetComponentInChildren<Animator>();
     // Reset 

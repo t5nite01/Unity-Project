@@ -7,7 +7,6 @@ using System.IO;
 
 public class HighscoreManager : MonoBehaviour
 {
-  private int[] highScore;
   List<GameObject> scores;
   private GameObject highScorePanel;
   private GameObject highScoreleftPanel;
@@ -18,7 +17,6 @@ public class HighscoreManager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
     if (highscoreManager == null) {
       highscoreManager = this;
-      highScore = new int[5];
       scores = new List<GameObject>();
       highScorePanel = GameObject.Find("PanelHighscore");
       highScoreleftPanel = GameObject.Find("PanelleftHighscore");

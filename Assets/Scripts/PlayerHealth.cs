@@ -15,7 +15,6 @@ public class PlayerHealth : MonoBehaviour
 
     Transform cameraMain;                                       // Reference to the MainCamera's transform.
     Animator anim;                                              // Reference to the Animator component.
-    AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerMovementScript playerMovement;                        // Reference to the player's movement.
     MouseLookScript mouseLook;                                  // Reference to the player's mouse look.
     GunInventory gunInventory;                                  // Reference to the PlayerShooting script.
@@ -33,7 +32,6 @@ public class PlayerHealth : MonoBehaviour
         // Setting up the references.
         cameraMain = transform.Find("Main Camera").transform;
         anim = GetComponent <Animator> ();
-        playerAudio = GetComponent <AudioSource> ();
         playerMovement = GetComponent <PlayerMovementScript> ();
         mouseLook = GetComponent<MouseLookScript> ();
         gunInventory = GetComponentInChildren <GunInventory> ();

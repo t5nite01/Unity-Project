@@ -7,7 +7,6 @@ public class EnemyAttack : MonoBehaviour
   public AudioClip attackSound;
   public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
   private int attackDamage = 10;               // The amount of health taken away per attack.
-  Animator anim;                              // Reference to the animator component.
   GameObject player;                          // Reference to the player GameObject.
   PlayerHealth playerHealth;                  // Reference to the player's health.
   EnemyHealth enemyHealth;                    // Reference to this enemy's health.
@@ -21,7 +20,6 @@ public class EnemyAttack : MonoBehaviour
     player = GameObject.FindGameObjectWithTag("Player");
     playerHealth = player.GetComponent<PlayerHealth>();
     enemyHealth = GetComponent<EnemyHealth>();
-    anim = GetComponent<Animator>();
     // Reset
     attackDamage = 10;
   }
