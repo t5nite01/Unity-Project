@@ -179,6 +179,7 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             gamePaused = true;
             pausePanel.SetActive(true);
+            Cursor.visible = true;
         }
     }
 
@@ -311,6 +312,7 @@ public class PlayerMovementScript : MonoBehaviour {
 
             shopping = true;
             shopPanel.SetActive(true);
+            Cursor.visible = true;
         }
         else if (other.gameObject.CompareTag("Closed Shop") && shopCollider.enabled == false && !shopPanel.activeSelf) //Show text only if inside the building and shop is closed
         {

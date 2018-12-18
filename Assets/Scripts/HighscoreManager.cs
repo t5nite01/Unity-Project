@@ -38,7 +38,7 @@ public class HighscoreManager : MonoBehaviour
 
   public void SubmitNewPlayerScore(int newScore)
   {
-    for (int i = 0; i < highScore.Length; i++)
+    for (int i = 0; i < 5; i++)
     {
       //Get the highScore from 1 - 5
       string highScoreKey = "HighScore" + (i + 1).ToString();
@@ -49,10 +49,10 @@ public class HighscoreManager : MonoBehaviour
         // Move earlier scores down when adding in between.
         if (i < 5)
         {
-          for (int a = 5; a >= i && (a+2) < 6; a--)
+          for (int a = 5; a > i; a--)
           {
-            string highScoreKeyfrom = "HighScore" + (a + 1).ToString();
-            string highScoreKeySetTo = "HighScore" + (a + 2).ToString();
+            string highScoreKeyfrom = "HighScore" + (a).ToString();
+            string highScoreKeySetTo = "HighScore" + (a + 1).ToString();
             PlayerPrefs.SetInt(highScoreKeySetTo, PlayerPrefs.GetInt(highScoreKeyfrom, 0));
           }
         }

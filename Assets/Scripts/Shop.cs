@@ -258,6 +258,7 @@ public class Shop : MonoBehaviour
         scoreManager.resume();
         // Hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         // Exit shopping
         playerMovement.shopping = false;
         // Allow 

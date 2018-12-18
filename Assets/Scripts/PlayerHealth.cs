@@ -127,6 +127,7 @@ public class PlayerHealth : MonoBehaviour
         DisablePlayerInputs();                      // Disable unwanted player input
 
         Cursor.lockState = CursorLockMode.None;     // Show the cursor
+        Cursor.visible = true;
 
         GameObject.Find("HighScoreManager").GetComponent<HighscoreManager>().SubmitNewPlayerScore(
           Mathf.RoundToInt(float.Parse(GetComponent<ScoreManager>().getScore().ToString())));  

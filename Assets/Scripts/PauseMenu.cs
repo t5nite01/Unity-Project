@@ -66,6 +66,7 @@ public class PauseMenu : MonoBehaviour
         scoreManager.resume();
         // Hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         // Allow 
         justEntered = true;
     }
