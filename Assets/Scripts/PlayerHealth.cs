@@ -9,7 +9,6 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;                                   // The current health the player has.
     public Slider healthSlider;                                 // Reference to the UI's health bar.
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
-    public AudioClip deathClip;                                 // The audio clip to play when the player dies.
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 
@@ -19,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     MouseLookScript mouseLook;                                  // Reference to the player's mouse look.
     GunInventory gunInventory;                                  // Reference to the PlayerShooting script.
     SkinnedMeshRenderer skinnedMeshRenderer;                    // Reference to the player's Skinned Mesh Renderer.
+    AudioController audioController;                            // Reference to the AudioController script.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
     private float timeFromLastDamage;
@@ -36,7 +36,8 @@ public class PlayerHealth : MonoBehaviour
         mouseLook = GetComponent<MouseLookScript> ();
         gunInventory = GetComponentInChildren <GunInventory> ();
         skinnedMeshRenderer = GameObject.Find("Men_4").GetComponent<SkinnedMeshRenderer>();
-        
+        audioController = GameObject.Find("AudioManager").GetComponent<AudioController>();
+
         // Don't show the player body
         skinnedMeshRenderer.enabled = false;
 
@@ -92,11 +93,14 @@ public class PlayerHealth : MonoBehaviour
         // Set the health bar's value to the current health.
         healthSlider.value = currentHealth;
 
-        // Play the hurt sound effect.
-        //playerAudio.Play ();
+        // Play the hurt sound effect. Don't play if already playing.
+        if (playerMovement._hurtSound && !playerMovement._hurtSound.isPlaying)
+        {
+            playerMovement._hurtSound.Play();
+        }
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
-        if(currentHealth <= 0 && !isDead)
+        if (currentHealth <= 0 && !isDead)
         {
             // ... it should die.
             Death ();
@@ -107,6 +111,14 @@ public class PlayerHealth : MonoBehaviour
     {
         // Set the death flag so this function won't be called again.
         isDead = true;
+
+        // Play the dying audio
+        if (playerMovement._dyingSound)
+        {
+            playerMovement._hurtSound.Stop();
+            playerMovement._dyingSound.Play();
+            StartCoroutine(WaitForSound(playerMovement._dyingSound));
+        }
 
         skinnedMeshRenderer.enabled = true;         // Show the player body
 
@@ -128,14 +140,23 @@ public class PlayerHealth : MonoBehaviour
         Cursor.visible = true;
 
         GameObject.Find("HighScoreManager").GetComponent<HighscoreManager>().SubmitNewPlayerScore(
-          Mathf.RoundToInt(float.Parse(GetComponent<ScoreManager>().getScore().ToString())));  
-
+          Mathf.RoundToInt(float.Parse(GetComponent<ScoreManager>().getScore().ToString())));
+        
         // Turn off any remaining shooting effects.
         //playerShooting.DisableEffects();
+    }
 
-        // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        //playerAudio.clip = deathClip;
-        //playerAudio.Play ();
+    IEnumerator WaitForSound(AudioSource sound)
+    {
+        //Wait Until Sound has finished playing
+        while (sound.isPlaying)
+        {
+            yield return null;
+        }
+
+        //Audio has finished playing, mute volume
+        audioController.mixer.SetFloat("MainVolume", -80);
+
     }
 
     private void MoveCamera()

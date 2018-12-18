@@ -52,6 +52,8 @@ public class PlayerMovementScript : MonoBehaviour {
     _hitSound.volume = volume;
     _runSound.volume = volume;
     _walkSound.volume = volume;
+    _hurtSound.volume = volume;
+    _dyingSound.volume = volume;
 
     shopClosedText = GameObject.Find("ShopClosedText").GetComponent<Text>();
     shopCollider = GameObject.FindGameObjectWithTag("Shop").GetComponent<BoxCollider>();
@@ -470,5 +472,9 @@ public class PlayerMovementScript : MonoBehaviour {
   public AudioSource _walkSound;
   [Tooltip("Run Sound player makes.")]
   public AudioSource _runSound;
+  [Tooltip("Hurt Sound player makes.")]
+  public AudioSource _hurtSound;
+  [Tooltip("Dying Sound player makes.")]
+  public AudioSource _dyingSound;
 }
 

@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    AudioController audioController;
 
     // Use this for initialization
     void Start()
     {
-
+        audioController = GameObject.Find("AudioManager").GetComponent<AudioController>();
     }
 
     // Update is called once per frame
@@ -28,6 +29,9 @@ public class GameOver : MonoBehaviour
 
     IEnumerator LoadScene(string scene)
     {
+        // Unmute volume
+        audioController.mixer.SetFloat("MainVolume", PlayerPrefs.GetFloat("MainVolume"));
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
 
         while (!asyncLoad.isDone)
