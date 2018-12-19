@@ -800,6 +800,11 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 250.72
       objectReference: {fileID: 0}
+    - target: {fileID: 114442881948093942, guid: 5fe7cf373a97c89459da9dcb6669d054,
+        type: 2}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 1613827582}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fe7cf373a97c89459da9dcb6669d054, type: 2}
   m_IsPrefabAsset: 0
